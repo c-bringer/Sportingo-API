@@ -3,7 +3,7 @@ package fr.sportingo.api.evenement.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.sportingo.api.utilisateur.model.User;
 import fr.sportingo.api.utilisateur.model.UserRegistration;
-import fr.sportingo.api.sportMecanique.model.MechanicalSport;
+import fr.sportingo.api.sportMecanique.model.SportMecanique;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -61,7 +61,7 @@ public class Event
 
     @OneToOne
     @JoinColumn(name = "id_mechanical_sport")
-    private MechanicalSport mechanicalSport;
+    private SportMecanique sportMecanique;
 
 //    @ManyToMany
 //    @JoinTable(name = "event_category",

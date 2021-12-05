@@ -11,13 +11,13 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name = "mechanical_sport")
-public class MechanicalSport
+@Table(name = "sport_mecanique")
+public class SportMecanique
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "label", length = 50)
-    private String label;
+    @Column(name = "libelle", length = 50)
+    private String libelle;
 }

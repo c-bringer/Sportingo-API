@@ -2,7 +2,7 @@ package fr.sportingo.api.evenement.controller;
 
 import fr.sportingo.api.evenement.service.EventService;
 import fr.sportingo.api.evenement.model.Event;
-import fr.sportingo.api.sportMecanique.model.MechanicalSport;
+import fr.sportingo.api.sportMecanique.model.SportMecanique;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -146,9 +146,9 @@ public class EventController
                 currentEvent.setIsDisabled(isDisabled);
             }
 
-            MechanicalSport mechanicalSport = event.getMechanicalSport();
-            if(mechanicalSport != null) {
-                currentEvent.setMechanicalSport(mechanicalSport);
+            SportMecanique sportMecanique = event.getSportMecanique();
+            if(sportMecanique != null) {
+                currentEvent.setSportMecanique(sportMecanique);
             }
 
 //            List<Category> categories = event.getCategories();

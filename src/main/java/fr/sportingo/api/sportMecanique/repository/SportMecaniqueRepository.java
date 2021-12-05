@@ -1,6 +1,6 @@
 package fr.sportingo.api.sportMecanique.repository;
 
-import fr.sportingo.api.sportMecanique.model.MechanicalSport;
+import fr.sportingo.api.sportMecanique.model.SportMecanique;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0
  */
 @Repository
-public interface MechanicalSportRepository extends CrudRepository<MechanicalSport, Long>
+public interface SportMecaniqueRepository extends CrudRepository<SportMecanique, Long>
 {
 
 }

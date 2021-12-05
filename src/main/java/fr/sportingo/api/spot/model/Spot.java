@@ -2,7 +2,7 @@ package fr.sportingo.api.spot.model;
 
 import fr.sportingo.api.difficulte.model.Difficulte;
 import fr.sportingo.api.utilisateur.model.User;
-import fr.sportingo.api.sportMecanique.model.MechanicalSport;
+import fr.sportingo.api.sportMecanique.model.SportMecanique;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -59,5 +59,5 @@ public class Spot
     @JoinTable(name = "spot_mechanical_sport",
                 joinColumns = @JoinColumn(name = "id_spot"),
                 inverseJoinColumns = @JoinColumn(name = "id_mechanical_sport"))
-    private List<MechanicalSport> mechanicalSports = new ArrayList<>();
+    private List<SportMecanique> sportMecaniques = new ArrayList<>();
 }

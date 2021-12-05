@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MechanicalSportControllerTests
+public class SportMecaniqueControllerTests
 {
     @Autowired
     private MockMvc mockMvc;

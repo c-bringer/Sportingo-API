@@ -1,7 +1,7 @@
 package fr.sportingo.api.spot.controller;
 
 import fr.sportingo.api.difficulte.model.Difficulte;
-import fr.sportingo.api.sportMecanique.model.MechanicalSport;
+import fr.sportingo.api.sportMecanique.model.SportMecanique;
 import fr.sportingo.api.spot.service.SpotService;
 import fr.sportingo.api.spot.model.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,9 +142,9 @@ public class SpotController
                 currentSpot.setDifficulte(difficulte);
             }
 
-            List<MechanicalSport> mechanicalSports = spot.getMechanicalSports();
-            if(mechanicalSports != null) {
-                currentSpot.setMechanicalSports(mechanicalSports);
+            List<SportMecanique> sportMecaniques = spot.getSportMecaniques();
+            if(sportMecaniques != null) {
+                currentSpot.setSportMecaniques(sportMecaniques);
             }
 
             spotService.saveSpot(currentSpot);
