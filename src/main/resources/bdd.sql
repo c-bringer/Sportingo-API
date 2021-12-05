@@ -52,19 +52,19 @@ INSERT INTO `category` (`id`, `label`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `difficulty`
+-- Table structure for table `difficulte`
 --
 
-CREATE TABLE `difficulty` (
+CREATE TABLE `difficulte` (
                               `id` int(11) NOT NULL,
                               `label` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `difficulty`
+-- Dumping data for table `difficulte`
 --
 
-INSERT INTO `difficulty` (`id`, `label`) VALUES
+INSERT INTO `difficulte` (`id`, `label`) VALUES
 (1, 'Très facile'),
 (2, 'Facile'),
 (3, 'Moyen'),
@@ -350,9 +350,9 @@ ALTER TABLE `category`
     ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `difficulty`
+-- Indexes for table `difficulte`
 --
-ALTER TABLE `difficulty`
+ALTER TABLE `difficulte`
     ADD PRIMARY KEY (`id`);
 
 --
@@ -435,9 +435,9 @@ ALTER TABLE `category`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `difficulty`
+-- AUTO_INCREMENT for table `difficulte`
 --
-ALTER TABLE `difficulty`
+ALTER TABLE `difficulte`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
@@ -492,7 +492,7 @@ ALTER TABLE `event_category`
 -- Constraints for table `spot`
 --
 ALTER TABLE `spot`
-    ADD CONSTRAINT `FK_Spot_Difficulty` FOREIGN KEY (`id_difficulty`) REFERENCES `difficulty` (`id`),
+    ADD CONSTRAINT `FK_Spot_Difficulty` FOREIGN KEY (`id_difficulty`) REFERENCES `difficulte` (`id`),
   ADD CONSTRAINT `FK_Spot_User` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 
 --
