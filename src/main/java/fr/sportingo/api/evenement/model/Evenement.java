@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.sportingo.api.utilisateur.model.User;
 import fr.sportingo.api.utilisateur.model.UserRegistration;
 import fr.sportingo.api.sportMecanique.model.SportMecanique;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,10 +17,11 @@ import java.util.List;
  * @author Corentin Bringer
  * @version 1.0
  */
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "event")
-public class Event
+@Table(name = "evenement")
+public class Evenement
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

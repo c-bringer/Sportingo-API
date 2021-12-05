@@ -1,6 +1,6 @@
 package fr.sportingo.api.utilisateur.model;
 
-import fr.sportingo.api.evenement.model.Event;
+import fr.sportingo.api.evenement.model.Evenement;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -25,7 +25,7 @@ public class UserRegistration
 
     @ManyToOne
     @JoinColumn(name = "id_event")
-    private Event event;
+    private Evenement evenement;
 
     @Column(name = "is_accepted", length = 1)
     private Integer isAccepted;
