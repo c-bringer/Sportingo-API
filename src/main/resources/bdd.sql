@@ -81,10 +81,10 @@ INSERT INTO `difficulte` (`id`, `label`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event`
+-- Table structure for table `evenement`
 --
 
-CREATE TABLE `event` (
+CREATE TABLE `evenement` (
                          `id` int(11) NOT NULL,
                          `image` varchar(255) DEFAULT NULL,
                          `name` varchar(50) NOT NULL,
@@ -101,10 +101,10 @@ CREATE TABLE `event` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `event`
+-- Dumping data for table `evenement`
 --
 
-INSERT INTO `event` (`id`, `image`, `name`, `description`, `date_hours`, `minimum_birthday`, `number_places`, `longitude`, `latitude`, `id_user`, `id_mechanical_sport`, `is_verified`, `is_disabled`) VALUES
+INSERT INTO `evenement` (`id`, `image`, `name`, `description`, `date_hours`, `minimum_birthday`, `number_places`, `longitude`, `latitude`, `id_user`, `id_mechanical_sport`, `is_verified`, `is_disabled`) VALUES
 (1, '', 'Natural Games', 'Gravida dictumst pharetra nullam interdum augue lectus iaculis nec.', '2021-01-30 15:00:00', '2000-01-01', 100, -130.6867, -55.727, 4, 1, 1, 0),
 (2, '[djfhdf.png]', 'TMT Cup', 'Litora augue rhoncus fames venenatis sed auctor praesent ligula nulla.', '2021-01-30 14:30:00', '2005-01-01', 100, -130.6867, -55.727, 4, 4, 1, 0);
 
@@ -223,26 +223,26 @@ INSERT INTO `spot_mechanical_sport` (`id_mechanical_sport`, `id_spot`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `utilisateur`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `utilisateur` (
                         `id` int(11) NOT NULL,
-                        `civility` varchar(8) NOT NULL,
-                        `firstname` varchar(50) NOT NULL,
-                        `lastname` varchar(50) NOT NULL,
-                        `birthday` date DEFAULT NULL,
+                        `civilite` varchar(8) NOT NULL,
+                        `prenom` varchar(50) NOT NULL,
+                        `nom` varchar(50) NOT NULL,
+                        `date_naissance` date DEFAULT NULL,
                         `email` varchar(100) NOT NULL,
                         `password` varchar(255) NOT NULL,
                         `is_admin` tinyint(1) NOT NULL,
-                        `is_disabled` tinyint(1) NOT NULL
+                        `is_desactive` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `utilisateur`
 --
 
-INSERT INTO `user` (`id`, `civility`, `firstname`, `lastname`, `birthday`, `email`, `password`, `is_admin`, `is_disabled`) VALUES
+INSERT INTO `utilisateur` (`id`, `civilite`, `prenom`, `nom`, `date_naissance`, `email`, `password`, `is_admin`, `is_desactive`) VALUES
 (1, 'Monsieur', 'Corentin', 'Bringer', '2000-10-08', 'corentinbringer@ik.me', '$2y$10$LzToNkmKlZMdH6O0Ngol0uYw807xEvB4flqCE/bjmrVW/u7Diy6TK', 1, 0),
 (2, 'Monsieur', 'Chrissy', 'Mcmanus', '1997-10-10', 'oliver.goldner44@yahoo.com', '$2y$10$LzToNkmKlZMdH6O0Ngol0uYw807xEvB4flqCE/bjmrVW/u7Diy6TK', 0, 0),
 (3, 'Monsieur', 'Setsuko', 'Carpenter', '1998-10-25', 'may_johnson0@hotmail.com', '$2y$10$LzToNkmKlZMdH6O0Ngol0uYw807xEvB4flqCE/bjmrVW/u7Diy6TK', 0, 0),
@@ -356,9 +356,9 @@ ALTER TABLE `difficulte`
     ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `event`
+-- Indexes for table `evenement`
 --
-ALTER TABLE `event`
+ALTER TABLE `evenement`
     ADD PRIMARY KEY (`id`),
   ADD KEY `FK_Event_Mechanical_Sport` (`id_mechanical_sport`),
   ADD KEY `FK_Event_User` (`id_user`);
@@ -392,9 +392,9 @@ ALTER TABLE `spot_mechanical_sport`
   ADD KEY `FK_Spot_Mechanical_Sport_Spot` (`id_spot`);
 
 --
--- Indexes for table `user`
+-- Indexes for table `utilisateur`
 --
-ALTER TABLE `user`
+ALTER TABLE `utilisateur`
     ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
@@ -441,9 +441,9 @@ ALTER TABLE `difficulte`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `event`
+-- AUTO_INCREMENT for table `evenement`
 --
-ALTER TABLE `event`
+ALTER TABLE `evenement`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -459,9 +459,9 @@ ALTER TABLE `spot`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT for table `utilisateur`
 --
-ALTER TABLE `user`
+ALTER TABLE `utilisateur`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
@@ -475,25 +475,25 @@ ALTER TABLE `user_registration`
 --
 
 --
--- Constraints for table `event`
+-- Constraints for table `evenement`
 --
-ALTER TABLE `event`
+ALTER TABLE `evenement`
     ADD CONSTRAINT `FK_Event_Mechanical_Sport` FOREIGN KEY (`id_mechanical_sport`) REFERENCES `mechanical_sport` (`id`),
-  ADD CONSTRAINT `FK_Event_User` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `FK_Event_User` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id`);
 
 --
 -- Constraints for table `event_category`
 --
 ALTER TABLE `event_category`
     ADD CONSTRAINT `FK_Event_Category_Category` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`),
-  ADD CONSTRAINT `FK_Event_Category_Event` FOREIGN KEY (`id_event`) REFERENCES `event` (`id`);
+  ADD CONSTRAINT `FK_Event_Category_Event` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`);
 
 --
 -- Constraints for table `spot`
 --
 ALTER TABLE `spot`
     ADD CONSTRAINT `FK_Spot_Difficulty` FOREIGN KEY (`id_difficulty`) REFERENCES `difficulte` (`id`),
-  ADD CONSTRAINT `FK_Spot_User` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `FK_Spot_User` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id`);
 
 --
 -- Constraints for table `spot_mechanical_sport`
@@ -506,23 +506,23 @@ ALTER TABLE `spot_mechanical_sport`
 -- Constraints for table `user_association`
 --
 ALTER TABLE `user_association`
-    ADD CONSTRAINT `FK_User_Association_User` FOREIGN KEY (`id`) REFERENCES `user` (`id`);
+    ADD CONSTRAINT `FK_User_Association_User` FOREIGN KEY (`id`) REFERENCES `utilisateur` (`id`);
 
 --
 -- Constraints for table `user_club`
 --
 ALTER TABLE `user_club`
-    ADD CONSTRAINT `FK_User_Club_User` FOREIGN KEY (`id`) REFERENCES `user` (`id`);
+    ADD CONSTRAINT `FK_User_Club_User` FOREIGN KEY (`id`) REFERENCES `utilisateur` (`id`);
 
 --
 -- Constraints for table `user_company`
 --
 ALTER TABLE `user_company`
-    ADD CONSTRAINT `FK_User_Company_User` FOREIGN KEY (`id`) REFERENCES `user` (`id`);
+    ADD CONSTRAINT `FK_User_Company_User` FOREIGN KEY (`id`) REFERENCES `utilisateur` (`id`);
 
 --
 -- Constraints for table `user_registration`
 --
 ALTER TABLE `user_registration`
-    ADD CONSTRAINT `FK_User_Registration_Event` FOREIGN KEY (`id_event`) REFERENCES `event` (`id`),
-  ADD CONSTRAINT `FK_User_Registration_User` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+    ADD CONSTRAINT `FK_User_Registration_Event` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`),
+  ADD CONSTRAINT `FK_User_Registration_User` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id`);

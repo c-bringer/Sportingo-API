@@ -15,7 +15,7 @@ import java.util.Optional;
  * @version 1.0
  */
 @Data
-@Service
+//@Service
 public class SpotService
 {
     @Autowired

@@ -1,7 +1,7 @@
 package fr.sportingo.api.spot.model;
 
 import fr.sportingo.api.difficulte.model.Difficulte;
-import fr.sportingo.api.utilisateur.model.User;
+import fr.sportingo.api.utilisateur.model.Utilisateur;
 import fr.sportingo.api.sportMecanique.model.SportMecanique;
 import lombok.Data;
 
@@ -15,49 +15,49 @@ import java.util.List;
  * @version 1.0
  */
 @Data
-@Entity
-@Table(name = "spot")
+//@Entity
+//@Table(name = "spot")
 public class Spot
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "image", length = 255)
+//    @Column(name = "image", length = 255)
     private String image;
 
-    @Column(name = "youtube_link", length = 255)
+//    @Column(name = "youtube_link", length = 255)
     private String youtubeLink;
 
-    @Column(name = "name", length = 50)
+//    @Column(name = "name", length = 50)
     private String name;
 
-    @Column(name = "description")
+//    @Column(name = "description")
     private String description;
 
-    @Column(name = "longitude")
+//    @Column(name = "longitude")
     private Double longitude;
 
-    @Column(name = "latitude")
+//    @Column(name = "latitude")
     private Double latitude;
 
-    @Column(name = "is_verified", length = 1)
+//    @Column(name = "is_verified", length = 1)
     private Integer isVerified;
 
-    @Column(name = "is_disabled", length = 1)
+//    @Column(name = "is_disabled", length = 1)
     private Integer isDisabled;
 
-    @OneToOne
-    @JoinColumn(name = "id_user")
-    private User user;
+//    @OneToOne
+//    @JoinColumn(name = "id_user")
+    private Utilisateur utilisateur;
 
-    @OneToOne
-    @JoinColumn(name = "id_difficulty")
+//    @OneToOne
+//    @JoinColumn(name = "id_difficulty")
     private Difficulte difficulte;
 
-    @ManyToMany
-    @JoinTable(name = "spot_mechanical_sport",
-                joinColumns = @JoinColumn(name = "id_spot"),
-                inverseJoinColumns = @JoinColumn(name = "id_mechanical_sport"))
+//    @ManyToMany
+//    @JoinTable(name = "spot_mechanical_sport",
+//                joinColumns = @JoinColumn(name = "id_spot"),
+//                inverseJoinColumns = @JoinColumn(name = "id_mechanical_sport"))
     private List<SportMecanique> sportMecaniques = new ArrayList<>();
 }

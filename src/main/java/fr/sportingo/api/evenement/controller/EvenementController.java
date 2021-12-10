@@ -14,7 +14,7 @@ import java.util.Optional;
  * @author Corentin Bringer
  * @version 1.0
  */
-@RestController
+//@RestController
 public class EvenementController
 {
     @Autowired
@@ -63,11 +63,11 @@ public class EvenementController
      * @param idUtilisateur Integer idUtilisateur
      * @return Objet Evenement
      */
-    @GetMapping("/event/user/{idUser}")
-    public Iterable<Evenement> getEvenementParUtilisateur(@PathVariable("idUser") final Long idUtilisateur)
-    {
-        return evenementService.getEvenementParUtilisateur(idUtilisateur);
-    }
+//    @GetMapping("/event/user/{idUser}")
+//    public Iterable<Evenement> getEvenementParUtilisateur(@PathVariable("idUser") final Long idUtilisateur)
+//    {
+//        return evenementService.getEvenementParUtilisateur(idUtilisateur);
+//    }
 
 
     /**
@@ -75,11 +75,11 @@ public class EvenementController
      * @param idSportMecanique Integer idSportMecanique
      * @return Objet Evenement
      */
-    @GetMapping("/event/mechanical-sport/{idMechanicalSport}")
-    public Iterable<Evenement> getEvenementParSportMecanique(@PathVariable("idMechanicalSport") final Long idSportMecanique)
-    {
-        return evenementService.getEvenementParSportMecanique(idSportMecanique);
-    }
+//    @GetMapping("/event/mechanical-sport/{idMechanicalSport}")
+//    public Iterable<Evenement> getEvenementParSportMecanique(@PathVariable("idMechanicalSport") final Long idSportMecanique)
+//    {
+//        return evenementService.getEvenementParSportMecanique(idSportMecanique);
+//    }
 
 
     /**

@@ -15,7 +15,7 @@ import java.util.Optional;
  * @author Corentin Bringer
  * @version 1.0
  */
-@RestController
+//@RestController
 public class SpotController
 {
     @Autowired
@@ -62,7 +62,7 @@ public class SpotController
     /**
      * Read - Retourne la liste des spots publie par un utilisateur
      * @param idUser Integer idUser
-     * @return Objet User
+     * @return Objet Utilisateur
      */
     @GetMapping("/spot/user/{idUser}")
     public Iterable<Spot> getSpotsByUser(@PathVariable("idUser") final Long idUser)

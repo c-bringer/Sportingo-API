@@ -1,4 +1,7 @@
 package fr.sportingo.api.motifCirculation.repository;
 
-public interface MotifCirculationRepository {
+import fr.sportingo.api.motifCirculation.model.MotifCirculation;
+import org.springframework.data.repository.CrudRepository;
+
+public interface MotifCirculationRepository extends CrudRepository<MotifCirculation, Long> {
 }

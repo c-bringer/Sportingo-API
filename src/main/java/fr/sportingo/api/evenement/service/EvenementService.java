@@ -13,7 +13,7 @@ import java.util.Optional;
  * @author Corentin Bringer
  * @version 1.0
  */
-@Service
+//@Service
 public class EvenementService
 {
     @Autowired
@@ -46,10 +46,10 @@ public class EvenementService
      * @param idUtilisateur Integer idUtilisateur
      * @return Objet Evenement
      */
-    public Iterable<Evenement> getEvenementParUtilisateur(final Long idUtilisateur)
-    {
-        return evenementRepository.getEvenementParUtilisateur(idUtilisateur);
-    }
+//    public Iterable<Evenement> getEvenementParUtilisateur(final Long idUtilisateur)
+//    {
+//        return evenementRepository.getEvenementParUtilisateur(idUtilisateur);
+//    }
 
 
     /**
@@ -57,10 +57,10 @@ public class EvenementService
      * @param idSportMecanique Integer idSportMecanique
      * @return Objet Evenement
      */
-    public Iterable<Evenement> getEvenementParSportMecanique(final Long idSportMecanique)
-    {
-        return evenementRepository.getEvenementParSportMecanique(idSportMecanique);
-    }
+//    public Iterable<Evenement> getEvenementParSportMecanique(final Long idSportMecanique)
+//    {
+//        return evenementRepository.getEvenementParSportMecanique(idSportMecanique);
+//    }
 
 
     /**

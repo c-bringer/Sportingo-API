@@ -12,7 +12,7 @@ import java.util.List;
  * @author Corentin Bringer
  * @version 1.0
  */
-@Repository
+//@Repository
 public interface SpotRepository extends CrudRepository<Spot, Long>
 {
     /**
