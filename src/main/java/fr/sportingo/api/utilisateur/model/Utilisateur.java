@@ -44,7 +44,7 @@ public class Utilisateur {
     @Column(name = "id_desactive", length = 1)
     private Integer isDesactive;
 
-//    @OneToMany(mappedBy = "utilisateur")
-//    @JsonIgnore
-//    private List<InscriptionUtilisateur> inscriptionUtilisateur = new ArrayList<>();
+    @OneToMany(mappedBy = "utilisateur")
+    @JsonIgnore
+    private List<InscriptionUtilisateur> inscriptionUtilisateur = new ArrayList<>();
 }

@@ -4,7 +4,7 @@ import fr.sportingo.api.utilisateur.model.InscriptionUtilisateur;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-//@Repository
+@Repository
 public interface InscriptionUtilisateurRepository extends CrudRepository<InscriptionUtilisateur, Long> {
 
 }

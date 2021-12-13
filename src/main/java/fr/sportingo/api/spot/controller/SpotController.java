@@ -10,88 +10,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * RestController pour les spots
- * @author Corentin Bringer
- * @version 1.0
- */
-//@RestController
-public class SpotController
-{
+@RestController
+public class SpotController {
+
     @Autowired
     private SpotService spotService;
 
-
-    /**
-     * Create - Enregistre un nouveau spot
-     * @param spot Objet Spot
-     * @return Objet Spot
-     */
     @PostMapping("/spot")
-    public Spot saveSpot(@RequestBody Spot spot)
-    {
-        return spotService.saveSpot(spot);
+    public Spot enregistrerSpot(@RequestBody Spot spot) {
+        return spotService.enregistrerSpot(spot);
     }
 
-
-    /**
-     * Read - Retourne un spot en fonction de l'id
-     * @param id Integer id
-     * @return Objet Spot
-     */
     @GetMapping("/spot/{id}")
-    public Spot getSpot(@PathVariable("id") final Long id)
-    {
+    public Spot getSpot(@PathVariable("id") final Long id) {
         Optional<Spot> spot = spotService.getSpot(id);
 
         return spot.orElse(null);
     }
 
-
-    /**
-     * Read - Retourne la liste de tous les spots
-     * @return Objet Spot
-     */
     @GetMapping("/spot")
-    public Iterable<Spot> getSpots()
-    {
+    public Iterable<Spot> getSpots() {
         return spotService.getSpots();
     }
 
-
-    /**
-     * Read - Retourne la liste des spots publie par un utilisateur
-     * @param idUser Integer idUser
-     * @return Objet Utilisateur
-     */
-    @GetMapping("/spot/user/{idUser}")
-    public Iterable<Spot> getSpotsByUser(@PathVariable("idUser") final Long idUser)
-    {
-        return spotService.getSpotsByUser(idUser);
+    @GetMapping("/spot/user/{id}")
+    public Iterable<Spot> getSpotsByUtilisateur(@PathVariable("id") final Long idUtilisateur) {
+        return spotService.getSpotsByUtilisateur(idUtilisateur);
     }
 
-
-    /**
-     * Read - Retourne la liste des spots en fonction des difficules
-     * @param difficulties List difficulties
-     * @return Objet Spot
-     */
-    @GetMapping("/spot/difficulty/{difficulties}")
-    public Iterable<Spot> getSpotsByDifficulties(@PathVariable("difficulties") final List<String> difficulties)
-    {
-        return spotService.getSpotsByDifficulties(difficulties);
+    @GetMapping("/spot/difficulty/{difficultes}")
+    public Iterable<Spot> getSpotsByDifficultes(@PathVariable("difficultes") final List<String> difficultes) {
+        return spotService.getSpotsByDifficultes(difficultes);
     }
 
-
-    /**
-     * Update - Mets à jour un spot en fonction de l'id
-     * @param spot Objet Spot
-     * @param id Integer id
-     * @return Objet Spot
-     */
     @PutMapping("/spot/{id}")
-    public Spot updateSpot(@RequestBody Spot spot, @PathVariable("id") final Long id)
-    {
+    public Spot modifierSpot(@RequestBody Spot spot, @PathVariable("id") final Long id) {
         Optional<Spot> s = spotService.getSpot(id);
 
         if(s.isPresent()) {
@@ -102,14 +55,14 @@ public class SpotController
                 currentSpot.setImage(image);
             }
 
-            String youtubeLink = spot.getYoutubeLink();
-            if(youtubeLink != null) {
-                currentSpot.setYoutubeLink(youtubeLink);
+            String videoYoutube = spot.getVideoYoutube();
+            if(videoYoutube != null) {
+                currentSpot.setVideoYoutube(videoYoutube);
             }
 
-            String name = spot.getName();
-            if(name != null) {
-                currentSpot.setName(name);
+            String nom = spot.getNom();
+            if(nom != null) {
+                currentSpot.setNom(nom);
             }
 
             String description = spot.getDescription();
@@ -127,14 +80,14 @@ public class SpotController
                 currentSpot.setLatitude(latitude);
             }
 
-            Integer isVerified = spot.getIsVerified();
-            if(isVerified != null) {
-                currentSpot.setIsVerified(isVerified);
+            Integer isVerifie = spot.getIsVerifie();
+            if(isVerifie != null) {
+                currentSpot.setIsVerifie(isVerifie);
             }
 
-            Integer isDisabled = spot.getIsDisabled();
-            if(isDisabled != null) {
-                currentSpot.setIsDisabled(isDisabled);
+            Integer isDesactive = spot.getIsDesactive();
+            if(isDesactive != null) {
+                currentSpot.setIsDesactive(isDesactive);
             }
 
             Difficulte difficulte = spot.getDifficulte();
@@ -147,21 +100,15 @@ public class SpotController
                 currentSpot.setSportMecaniques(sportMecaniques);
             }
 
-            spotService.saveSpot(currentSpot);
+            spotService.enregistrerSpot(currentSpot);
             return currentSpot;
         } else {
             return null;
         }
     }
 
-
-    /**
-     * Delete - Supprime un spot en fonction de l'id
-     * @param id Integer id
-     */
     @DeleteMapping("/spot/{id}")
-    public void deleteSpot(@PathVariable("id") final Long id)
-    {
-        spotService.deleteSpot(id);
+    public void supprimerSpot(@PathVariable("id") final Long id) {
+        spotService.supprimerSpot(id);
     }
 }

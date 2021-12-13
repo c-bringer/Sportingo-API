@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-//@RestController
+@RestController
 public class DifficulteController {
     @Autowired
     private DifficulteService difficulteService;

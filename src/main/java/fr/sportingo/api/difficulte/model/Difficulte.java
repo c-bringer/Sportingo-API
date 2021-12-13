@@ -7,13 +7,13 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-//@Entity
-//@Table(name = "difficulte")
+@Entity
+@Table(name = "difficulte")
 public class Difficulte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name = "libelle", length = 50)
+    @Column(name = "libelle", length = 50)
     private String libelle;
 }

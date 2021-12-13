@@ -7,13 +7,13 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-//@Entity
-//@Table(name = "sport_mecanique")
+@Entity
+@Table(name = "sport_mecanique")
 public class SportMecanique {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name = "libelle", length = 50)
+    @Column(name = "libelle", length = 50)
     private String libelle;
 }

@@ -2,13 +2,12 @@ package fr.sportingo.api.difficulte.service;
 
 import fr.sportingo.api.difficulte.model.Difficulte;
 import fr.sportingo.api.difficulte.repository.DifficulteRepository;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-//@Service
+@Service
 public class DifficulteService {
     @Autowired
     private DifficulteRepository difficulteRepository;

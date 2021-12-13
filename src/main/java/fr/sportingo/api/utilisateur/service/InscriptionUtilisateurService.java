@@ -7,25 +7,25 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-//@Service
+@Service
 public class InscriptionUtilisateurService {
 
     @Autowired
-    private InscriptionUtilisateurRepository inscriptionUtilisateurRepository;
+    private InscriptionUtilisateurRepository inscriptionRepository;
 
     public Optional<InscriptionUtilisateur> getInscriptionUtilisateur(final Long id) {
-        return inscriptionUtilisateurRepository.findById(id);
+        return inscriptionRepository.findById(id);
     }
 
     public Iterable<InscriptionUtilisateur> getInscriptionsUtilisateurs() {
-        return inscriptionUtilisateurRepository.findAll();
+        return inscriptionRepository.findAll();
     }
 
     public void supprimerInscriptionUtilisateur(final Long id) {
-        inscriptionUtilisateurRepository.deleteById(id);
+        inscriptionRepository.deleteById(id);
     }
 
-    public InscriptionUtilisateur enregistrerInscriptionUtilisateur(InscriptionUtilisateur inscriptionUtilisateur) {
-        return inscriptionUtilisateurRepository.save(inscriptionUtilisateur);
+    public InscriptionUtilisateur enregistrerInscriptionUtilisateur(InscriptionUtilisateur inscription) {
+        return inscriptionRepository.save(inscription);
     }
 }
