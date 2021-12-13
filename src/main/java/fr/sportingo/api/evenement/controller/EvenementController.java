@@ -24,15 +24,14 @@ public class EvenementController
     }
 
     @GetMapping("/event/{id}")
-    public Evenement getEvent(@PathVariable("id") final Long id) {
+    public Evenement getEvenement(@PathVariable("id") final Long id) {
         Optional<Evenement> evenement = evenementService.getEvenement(id);
 
         return evenement.orElse(null);
     }
 
-
     @GetMapping("/event/user/{idUser}")
-    public Iterable<Evenement> getEvenementByUtilisateur(@PathVariable("idUser") final Long idUtilisateur) {
+    public Iterable<Evenement> getEvenementsByUtilisateur(@PathVariable("idUser") final Long idUtilisateur) {
         return evenementService.getEvenementsByUtilisateur(idUtilisateur);
     }
 
@@ -86,8 +85,7 @@ public class EvenementController
     }
 
     @DeleteMapping("/event/{id}")
-    public void supprimerEvenement(@PathVariable("id") final Long id)
-    {
+    public void supprimerEvenement(@PathVariable("id") final Long id) {
         evenementService.supprimerEvenement(id);
     }
 }

@@ -3,7 +3,6 @@ package fr.sportingo.api.evenement.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.sportingo.api.utilisateur.model.InscriptionUtilisateur;
 import fr.sportingo.api.utilisateur.model.Utilisateur;
-import fr.sportingo.api.sportMecanique.model.SportMecanique;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +21,7 @@ public class Evenement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "image", length = 255)
+    @Column(name = "image")
     private String image;
 
     @Column(name = "nom", length = 50)

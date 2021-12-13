@@ -35,7 +35,7 @@ public class Utilisateur {
     @Column(name = "email", length = 100, unique = true)
     private String email;
 
-    @Column(name = "password", length = 255)
+    @Column(name = "password")
     private String password;
 
     @Column(name = "is_admin", length = 1)
