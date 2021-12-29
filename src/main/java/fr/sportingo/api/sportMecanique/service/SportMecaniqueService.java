@@ -20,11 +20,11 @@ public class SportMecaniqueService {
         return sportMecaniqueRepository.findAll();
     }
 
-    public void supprimerSportMecanique(final Long id) {
+    public void deleteSportMecanique(final Long id) {
         sportMecaniqueRepository.deleteById(id);
     }
 
-    public SportMecanique enregistrerSportMecanique(SportMecanique sportMecanique) {
+    public SportMecanique saveSportMecanique(SportMecanique sportMecanique) {
         return sportMecaniqueRepository.save(sportMecanique);
     }
 }

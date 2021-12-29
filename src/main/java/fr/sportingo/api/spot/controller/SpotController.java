@@ -17,8 +17,8 @@ public class SpotController {
     private SpotService spotService;
 
     @PostMapping("/spot")
-    public Spot enregistrerSpot(@RequestBody Spot spot) {
-        return spotService.enregistrerSpot(spot);
+    public Spot saveSpot(@RequestBody Spot spot) {
+        return spotService.saveSpot(spot);
     }
 
     @GetMapping("/spot/{id}")
@@ -44,7 +44,7 @@ public class SpotController {
     }
 
     @PutMapping("/spot/{id}")
-    public Spot modifierSpot(@RequestBody Spot spot, @PathVariable("id") final Long id) {
+    public Spot updateSpot(@RequestBody Spot spot, @PathVariable("id") final Long id) {
         Optional<Spot> s = spotService.getSpot(id);
 
         if(s.isPresent()) {
@@ -100,7 +100,7 @@ public class SpotController {
                 currentSpot.setSportMecaniques(sportMecaniques);
             }
 
-            spotService.enregistrerSpot(currentSpot);
+            spotService.saveSpot(currentSpot);
             return currentSpot;
         } else {
             return null;
@@ -108,7 +108,7 @@ public class SpotController {
     }
 
     @DeleteMapping("/spot/{id}")
-    public void supprimerSpot(@PathVariable("id") final Long id) {
-        spotService.supprimerSpot(id);
+    public void deleteSpot(@PathVariable("id") final Long id) {
+        spotService.deleteSpot(id);
     }
 }
