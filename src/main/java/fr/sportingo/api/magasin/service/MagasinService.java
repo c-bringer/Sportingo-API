@@ -25,11 +25,11 @@ public class MagasinService {
         return magasinRepository.getMagasinsByUtilisateur(idUtilisateur);
     }
 
-    public void supprimerMagasin(final Long id) {
+    public void deleteMagasin(final Long id) {
         magasinRepository.deleteById(id);
     }
 
-    public Magasin enregistrerMagasin(Magasin magasin) {
+    public Magasin saveMagasin(Magasin magasin) {
         return magasinRepository.save(magasin);
     }
 }

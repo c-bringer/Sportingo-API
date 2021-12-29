@@ -21,11 +21,11 @@ public class UtilisateurService {
         return utilisateurRepository.findAll();
     }
 
-    public void supprimerUtilisateur(final Long id) {
+    public void deleteUtilisateur(final Long id) {
         utilisateurRepository.deleteById(id);
     }
 
-    public Utilisateur enregistrerUtilisateur(Utilisateur utilisateur) {
+    public Utilisateur saveUtilisateur(Utilisateur utilisateur) {
         return utilisateurRepository.save(utilisateur);
     }
 }

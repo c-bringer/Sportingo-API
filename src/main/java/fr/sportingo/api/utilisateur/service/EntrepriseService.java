@@ -21,11 +21,11 @@ public class EntrepriseService {
         return entrepriseRepository.findAll();
     }
 
-    public void supprimerEntreprise(final Long id) {
+    public void deleteEntreprise(final Long id) {
         entrepriseRepository.deleteById(id);
     }
 
-    public Entreprise enregistrerEntreprise(Entreprise entreprise) {
+    public Entreprise saveEntreprise(Entreprise entreprise) {
         return entrepriseRepository.save(entreprise);
     }
 }

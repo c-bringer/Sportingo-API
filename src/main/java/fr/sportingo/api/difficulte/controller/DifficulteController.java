@@ -13,8 +13,8 @@ public class DifficulteController {
     private DifficulteService difficulteService;
 
     @PostMapping("/admin/difficulte")
-    public Difficulte enregistreDifficulte(@RequestBody Difficulte difficulte) {
-        return difficulteService.enregistreDifficulte(difficulte);
+    public Difficulte saveDifficulte(@RequestBody Difficulte difficulte) {
+        return difficulteService.saveDifficulte(difficulte);
     }
 
     @GetMapping("/difficulty")
@@ -30,7 +30,7 @@ public class DifficulteController {
     }
 
     @PutMapping("/admin/difficulty/{id}")
-    public Difficulte modifierDifficulte(@PathVariable("id") final Long id, @RequestBody Difficulte difficulte) {
+    public Difficulte updateDifficulte(@PathVariable("id") final Long id, @RequestBody Difficulte difficulte) {
         Optional<Difficulte> d = difficulteService.getDifficulte(id);
 
         if(d.isPresent()) {
@@ -41,7 +41,7 @@ public class DifficulteController {
                 currentDifficulte.setLibelle(libelle);
             }
 
-            difficulteService.enregistreDifficulte(currentDifficulte);
+            difficulteService.saveDifficulte(currentDifficulte);
             return currentDifficulte;
         } else {
             return null;
@@ -50,6 +50,6 @@ public class DifficulteController {
 
     @DeleteMapping("/admin/difficulty/{id}")
     public void deleteDifficulty(@PathVariable("id") final Long id) {
-        difficulteService.supprimmerDifficulte(id);
+        difficulteService.deleteDifficulte(id);
     }
 }

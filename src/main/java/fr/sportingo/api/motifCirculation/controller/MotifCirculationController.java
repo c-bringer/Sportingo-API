@@ -16,8 +16,8 @@ public class MotifCirculationController {
     private MotifCirculationService motifCirculationService;
 
     @PostMapping("/private/enregistrer-motif-circulation")
-    public MotifCirculation enregistrerMotifCirculation(@RequestBody MotifCirculation motifCirculation) {
-        return motifCirculationService.enregistrerMotifCirculation(motifCirculation);
+    public MotifCirculation saveMotifCirculation(@RequestBody MotifCirculation motifCirculation) {
+        return motifCirculationService.saveMotifCirculation(motifCirculation);
     }
 
     @GetMapping("/public/motif-de-circulation")
@@ -33,7 +33,7 @@ public class MotifCirculationController {
     }
 
     @PutMapping("/private/motif-de-circulation/{id}")
-    public MotifCirculation modifierMotifCirculation(@PathVariable("id") final Long id, @RequestBody MotifCirculation motifCirculation) {
+    public MotifCirculation updateMotifCirculation(@PathVariable("id") final Long id, @RequestBody MotifCirculation motifCirculation) {
         Optional<MotifCirculation> mc = motifCirculationService.getMotifCirculation(id);
 
         if(mc.isPresent()) {
@@ -44,7 +44,7 @@ public class MotifCirculationController {
                 currentMotifCirculation.setLibelle(libelle);
             }
 
-            motifCirculationService.enregistrerMotifCirculation(currentMotifCirculation);
+            motifCirculationService.saveMotifCirculation(currentMotifCirculation);
             return currentMotifCirculation;
         } else {
             return null;
@@ -52,8 +52,8 @@ public class MotifCirculationController {
     }
 
     @DeleteMapping("/private/motif-de-circulation/{id}")
-    public void supprimerMotifCirculation(@PathVariable("id") final Long id) {
-        motifCirculationService.supprimerMotifCirculation(id);
+    public void deleteMotifCirculation(@PathVariable("id") final Long id) {
+        motifCirculationService.deleteMotifCirculation(id);
     }
 
 }

@@ -13,8 +13,8 @@ public class SportMecaniqueController {
     private SportMecaniqueService sportMecaniqueService;
 
     @PostMapping("/admin/mechanical-sport")
-    public SportMecanique enregistrerSportMecanique(@RequestBody SportMecanique sportMecanique) {
-        return sportMecaniqueService.enregistrerSportMecanique(sportMecanique);
+    public SportMecanique saveSportMecanique(@RequestBody SportMecanique sportMecanique) {
+        return sportMecaniqueService.saveSportMecanique(sportMecanique);
     }
 
     @GetMapping("/mechanical-sport")
@@ -30,7 +30,7 @@ public class SportMecaniqueController {
     }
 
     @PutMapping("/admin/mechanical-sport/{id}")
-    public SportMecanique modifierSportMecanique(@PathVariable("id") final Long id, @RequestBody SportMecanique sportMecanique) {
+    public SportMecanique updateSportMecanique(@PathVariable("id") final Long id, @RequestBody SportMecanique sportMecanique) {
         Optional<SportMecanique> sm = sportMecaniqueService.getSportMecanique(id);
 
         if(sm.isPresent()) {
@@ -41,7 +41,7 @@ public class SportMecaniqueController {
                 currentSportMecanique.setLibelle(libelle);
             }
 
-            sportMecaniqueService.enregistrerSportMecanique(currentSportMecanique);
+            sportMecaniqueService.saveSportMecanique(currentSportMecanique);
             return currentSportMecanique;
         } else {
             return null;
@@ -49,7 +49,7 @@ public class SportMecaniqueController {
     }
 
     @DeleteMapping("/admin/mechanical-sport/{id}")
-    public void supprimerSportMecanique(@PathVariable("id") final Long id) {
-        sportMecaniqueService.supprimerSportMecanique(id);
+    public void deleteSportMecanique(@PathVariable("id") final Long id) {
+        sportMecaniqueService.deleteSportMecanique(id);
     }
 }

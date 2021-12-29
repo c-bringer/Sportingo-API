@@ -16,8 +16,8 @@ public class EvenementSportifController {
     private EvenementSportifService sportifService;
 
     @PostMapping("/eventsportif")
-    public EvenementSportif enregistrerEvenementSportif(@RequestBody EvenementSportif evenement) {
-        return sportifService.enregistrerEvenement(evenement);
+    public EvenementSportif saveEvenementSportif(@RequestBody EvenementSportif evenement) {
+        return sportifService.saveEvenement(evenement);
     }
 
     @GetMapping("/eventsport")
@@ -38,7 +38,7 @@ public class EvenementSportifController {
     }
 
     @PutMapping("/eventsport/{id}")
-    public EvenementSportif modifierEvenementSportif(@RequestBody EvenementSportif evenement, @PathVariable("id") final Long id) {
+    public EvenementSportif updateEvenementSportif(@RequestBody EvenementSportif evenement, @PathVariable("id") final Long id) {
         Optional<EvenementSportif> e = sportifService.getEvenementSportif(id);
 
         if(e.isPresent()) {
@@ -89,7 +89,7 @@ public class EvenementSportifController {
                 currentEvenement.setSportMecanique(sportMecanique);
             }
 
-            sportifService.enregistrerEvenement(currentEvenement);
+            sportifService.saveEvenement(currentEvenement);
             return currentEvenement;
         } else {
             return null;
@@ -97,7 +97,7 @@ public class EvenementSportifController {
     }
 
     @DeleteMapping("/eventsport/{id}")
-    public void supprimerEvenementSportif(@PathVariable("id") final Long id) {
-        sportifService.supprimerEvenement(id);
+    public void deleteEvenementSportif(@PathVariable("id") final Long id) {
+        sportifService.deleteEvenement(id);
     }
 }

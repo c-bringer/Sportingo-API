@@ -25,11 +25,11 @@ public class EvenementCirculationService {
         return circulationRepository.getEvenementsCirculationByUtilisateur(idUtilisateur);
     }
 
-    public void supprimerEvenement(final Long id) {
+    public void deleteEvenement(final Long id) {
         circulationRepository.deleteById(id);
     }
 
-    public EvenementCirculation enregistrerEvenement(EvenementCirculation evenementCirculation) {
+    public EvenementCirculation saveEvenement(EvenementCirculation evenementCirculation) {
         return circulationRepository.save(evenementCirculation);
     }
 }

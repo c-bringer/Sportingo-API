@@ -21,11 +21,11 @@ public class MotifCirculationService {
         return motifCirculationRepository.findAll();
     }
 
-    public void supprimerMotifCirculation(final Long id) {
+    public void deleteMotifCirculation(final Long id) {
         motifCirculationRepository.deleteById(id);
     }
 
-    public MotifCirculation enregistrerMotifCirculation(MotifCirculation motifCirculation) {
+    public MotifCirculation saveMotifCirculation(MotifCirculation motifCirculation) {
         return motifCirculationRepository.save(motifCirculation);
     }
 }

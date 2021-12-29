@@ -14,8 +14,8 @@ public class InscriptionUtilisateurController {
     private InscriptionUtilisateurService inscriptionUtilisateurService;
 
     @PostMapping("/user-registration")
-    public InscriptionUtilisateur enregistrerInscriptionUtilisateur(@RequestBody InscriptionUtilisateur inscriptionUtilisateur) {
-        return inscriptionUtilisateurService.enregistrerInscriptionUtilisateur(inscriptionUtilisateur);
+    public InscriptionUtilisateur saveInscriptionUtilisateur(@RequestBody InscriptionUtilisateur inscriptionUtilisateur) {
+        return inscriptionUtilisateurService.saveInscriptionUtilisateur(inscriptionUtilisateur);
     }
 
     @GetMapping("/user-registration")
@@ -31,7 +31,7 @@ public class InscriptionUtilisateurController {
     }
 
     @PutMapping("/user-registration/{id}")
-    public InscriptionUtilisateur modifierInscriptionUtilisateur(@PathVariable("id") final Long id, @RequestBody InscriptionUtilisateur inscriptionUtilisateur) {
+    public InscriptionUtilisateur updateInscriptionUtilisateur(@PathVariable("id") final Long id, @RequestBody InscriptionUtilisateur inscriptionUtilisateur) {
         Optional<InscriptionUtilisateur> iu = inscriptionUtilisateurService.getInscriptionUtilisateur(id);
 
         if(iu.isPresent()) {
@@ -42,7 +42,7 @@ public class InscriptionUtilisateurController {
                 currentInscriptionUtilisateur.setIsAccepte(isAccepte);
             }
 
-            inscriptionUtilisateurService.enregistrerInscriptionUtilisateur(currentInscriptionUtilisateur);
+            inscriptionUtilisateurService.saveInscriptionUtilisateur(currentInscriptionUtilisateur);
             return currentInscriptionUtilisateur;
         } else {
             return null;
@@ -50,7 +50,7 @@ public class InscriptionUtilisateurController {
     }
 
     @DeleteMapping("/user-registration/{id}")
-    public void supprimerInscriptionUtilisateur(@PathVariable("id") final Long id) {
-        inscriptionUtilisateurService.supprimerInscriptionUtilisateur(id);
+    public void deleteInscriptionUtilisateur(@PathVariable("id") final Long id) {
+        inscriptionUtilisateurService.deleteInscriptionUtilisateur(id);
     }
 }

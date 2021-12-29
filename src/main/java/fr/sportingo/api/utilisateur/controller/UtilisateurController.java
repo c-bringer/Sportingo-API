@@ -15,8 +15,8 @@ public class UtilisateurController {
     private UtilisateurService utilisateurService;
 
     @PostMapping("/user")
-    public Utilisateur enregistrerUtilisateur(@RequestBody Utilisateur utilisateur) {
-        return utilisateurService.enregistrerUtilisateur(utilisateur);
+    public Utilisateur saveUtilisateur(@RequestBody Utilisateur utilisateur) {
+        return utilisateurService.saveUtilisateur(utilisateur);
     }
 
     @GetMapping("/user")
@@ -32,7 +32,7 @@ public class UtilisateurController {
     }
 
     @PutMapping("/user/{id}")
-    public Utilisateur modifierUtilisateur(@PathVariable("id") final Long id, @RequestBody Utilisateur utilisateur) {
+    public Utilisateur updateUtilisateur(@PathVariable("id") final Long id, @RequestBody Utilisateur utilisateur) {
         Optional<Utilisateur> u = utilisateurService.getUtilisateur(id);
 
         if(u.isPresent()) {
@@ -78,7 +78,7 @@ public class UtilisateurController {
                 currentUtilisateur.setIsDesactive(isDesactive);
             }
 
-            utilisateurService.enregistrerUtilisateur(currentUtilisateur);
+            utilisateurService.saveUtilisateur(currentUtilisateur);
             return currentUtilisateur;
         } else {
             return null;
@@ -86,7 +86,7 @@ public class UtilisateurController {
     }
 
     @DeleteMapping("/user/{id}")
-    public void supprimerUtilisateur(@PathVariable("id") final Long id) {
-        utilisateurService.supprimerUtilisateur(id);
+    public void deleteUtilisateur(@PathVariable("id") final Long id) {
+        utilisateurService.deleteUtilisateur(id);
     }
 }

@@ -14,8 +14,8 @@ public class MagasinController {
     private MagasinService magasinService;
 
     @PostMapping("/magasin")
-    public Magasin enregistrerMagasin(@RequestBody Magasin magasin) {
-        return magasinService.enregistrerMagasin(magasin);
+    public Magasin saveMagasin(@RequestBody Magasin magasin) {
+        return magasinService.saveMagasin(magasin);
     }
 
     @GetMapping("/magasin")
@@ -36,7 +36,7 @@ public class MagasinController {
     }
 
     @PutMapping("/magasin/{id}")
-    public Magasin modifierMagasin(@RequestBody Magasin magasin, @PathVariable("id") final Long id) {
+    public Magasin updateMagasin(@RequestBody Magasin magasin, @PathVariable("id") final Long id) {
         Optional<Magasin> m = magasinService.getMagasin(id);
 
         if(m.isPresent()) {
@@ -62,7 +62,7 @@ public class MagasinController {
                 currentMagasin.setVille(ville);
             }
 
-            magasinService.enregistrerMagasin(currentMagasin);
+            magasinService.saveMagasin(currentMagasin);
             return currentMagasin;
         } else {
             return null;
@@ -70,7 +70,7 @@ public class MagasinController {
     }
 
     @DeleteMapping("/magasin/{id}")
-    public void supprimerMagasin(@PathVariable("id") final Long id) {
-        magasinService.supprimerMagasin(id);
+    public void deleteMagasin(@PathVariable("id") final Long id) {
+        magasinService.deleteMagasin(id);
     }
 }

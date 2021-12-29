@@ -16,8 +16,8 @@ public class EvenementCirculationController {
     private EvenementCirculationService circulationService;
 
     @PostMapping("/eventcircu")
-    public EvenementCirculation enregistrerEvenementCirculation(@RequestBody EvenementCirculation evenement) {
-        return circulationService.enregistrerEvenement(evenement);
+    public EvenementCirculation saveEvenementCirculation(@RequestBody EvenementCirculation evenement) {
+        return circulationService.saveEvenement(evenement);
     }
 
     @GetMapping("/eventcircu")
@@ -38,7 +38,7 @@ public class EvenementCirculationController {
     }
 
     @PutMapping("/eventcircu/{id}")
-    public EvenementCirculation modifierEvenementCirculation(@RequestBody EvenementCirculation evenement, @PathVariable("id") final Long id) {
+    public EvenementCirculation updateEvenementCirculation(@RequestBody EvenementCirculation evenement, @PathVariable("id") final Long id) {
         Optional<EvenementCirculation> e = circulationService.getEvenementCirculation(id);
 
         if(e.isPresent()) {
@@ -84,7 +84,7 @@ public class EvenementCirculationController {
                 currentEvenement.setMotifCirculation(motifCirculation);
             }
 
-            circulationService.enregistrerEvenement(currentEvenement);
+            circulationService.saveEvenement(currentEvenement);
             return currentEvenement;
         } else {
             return null;
@@ -92,7 +92,7 @@ public class EvenementCirculationController {
     }
 
     @DeleteMapping("/eventcircu/{id}")
-    public void supprimerEvenementCirculation(@PathVariable("id") final Long id) {
-        circulationService.supprimerEvenement(id);
+    public void deleteEvenementCirculation(@PathVariable("id") final Long id) {
+        circulationService.deleteEvenement(id);
     }
 }

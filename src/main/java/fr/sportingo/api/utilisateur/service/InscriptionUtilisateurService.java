@@ -21,11 +21,11 @@ public class InscriptionUtilisateurService {
         return inscriptionRepository.findAll();
     }
 
-    public void supprimerInscriptionUtilisateur(final Long id) {
+    public void deleteInscriptionUtilisateur(final Long id) {
         inscriptionRepository.deleteById(id);
     }
 
-    public InscriptionUtilisateur enregistrerInscriptionUtilisateur(InscriptionUtilisateur inscription) {
+    public InscriptionUtilisateur saveInscriptionUtilisateur(InscriptionUtilisateur inscription) {
         return inscriptionRepository.save(inscription);
     }
 }

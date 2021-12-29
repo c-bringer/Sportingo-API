@@ -30,11 +30,11 @@ public class EvenementSportifService {
         return sportifRepository.getEvenementsSportifBySportMecanique(idSportMecanique);
     }
 
-    public void supprimerEvenement(final Long id) {
+    public void deleteEvenement(final Long id) {
         sportifRepository.deleteById(id);
     }
 
-    public EvenementSportif enregistrerEvenement(EvenementSportif evenementSportif) {
+    public EvenementSportif saveEvenement(EvenementSportif evenementSportif) {
         return sportifRepository.save(evenementSportif);
     }
 }

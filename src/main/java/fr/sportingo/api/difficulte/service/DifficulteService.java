@@ -20,11 +20,11 @@ public class DifficulteService {
         return difficulteRepository.findAll();
     }
 
-    public void supprimmerDifficulte(final Long id) {
+    public void deleteDifficulte(final Long id) {
         difficulteRepository.deleteById(id);
     }
 
-    public Difficulte enregistreDifficulte(Difficulte difficulte) {
+    public Difficulte saveDifficulte(Difficulte difficulte) {
         return difficulteRepository.save(difficulte);
     }
 }

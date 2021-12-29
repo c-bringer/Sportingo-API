@@ -25,11 +25,11 @@ public class EvenementService
         return evenementRepository.getEvenementsByUtilisateur(idUtilisateur);
     }
 
-    public void supprimerEvenement(final Long id) {
+    public void deleteEvenement(final Long id) {
         evenementRepository.deleteById(id);
     }
 
-    public Evenement enregistrerEvenement(Evenement evenement) {
+    public Evenement saveEvenement(Evenement evenement) {
         return evenementRepository.save(evenement);
     }
 }

@@ -14,8 +14,8 @@ public class EvenementController
     private EvenementService evenementService;
 
     @PostMapping("/event")
-    public Evenement enregistrerEvenement(@RequestBody Evenement evenement) {
-        return evenementService.enregistrerEvenement(evenement);
+    public Evenement saveEvenement(@RequestBody Evenement evenement) {
+        return evenementService.saveEvenement(evenement);
     }
 
     @GetMapping("/event")
@@ -36,7 +36,7 @@ public class EvenementController
     }
 
     @PutMapping("/event/{id}")
-    public Evenement modifierEvenement(@RequestBody Evenement evenement, @PathVariable("id") final Long id) {
+    public Evenement updateEvenement(@RequestBody Evenement evenement, @PathVariable("id") final Long id) {
         Optional<Evenement> e = evenementService.getEvenement(id);
 
         if(e.isPresent()) {
@@ -77,7 +77,7 @@ public class EvenementController
                 currentEvenement.setIsDesactive(isDesactive);
             }
 
-            evenementService.enregistrerEvenement(currentEvenement);
+            evenementService.saveEvenement(currentEvenement);
             return currentEvenement;
         } else {
             return null;
@@ -85,7 +85,7 @@ public class EvenementController
     }
 
     @DeleteMapping("/event/{id}")
-    public void supprimerEvenement(@PathVariable("id") final Long id) {
-        evenementService.supprimerEvenement(id);
+    public void deleteEvenement(@PathVariable("id") final Long id) {
+        evenementService.deleteEvenement(id);
     }
 }

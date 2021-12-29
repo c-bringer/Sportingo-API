@@ -15,8 +15,8 @@ public class EntrepriseController {
     private EntrepriseService entrepriseService;
 
     @PostMapping("/user-company")
-    public Entreprise enregistrerEntreprise(@RequestBody Entreprise entreprise) {
-        return entrepriseService.enregistrerEntreprise(entreprise);
+    public Entreprise saveEntreprise(@RequestBody Entreprise entreprise) {
+        return entrepriseService.saveEntreprise(entreprise);
     }
 
     @GetMapping("/user-company")
@@ -32,7 +32,7 @@ public class EntrepriseController {
     }
 
     @PutMapping("/user-company/{id}")
-    public Entreprise modifierEntreprise(@PathVariable("id") final Long id, @RequestBody Entreprise entreprise) {
+    public Entreprise updateEntreprise(@PathVariable("id") final Long id, @RequestBody Entreprise entreprise) {
         Optional<Entreprise> e = entrepriseService.getEntreprise(id);
 
         if(e.isPresent()) {
@@ -98,7 +98,7 @@ public class EntrepriseController {
                 currentEntreprise.setNumeroTva(numeroTva);
             }
 
-            entrepriseService.enregistrerEntreprise(currentEntreprise);
+            entrepriseService.saveEntreprise(currentEntreprise);
             return currentEntreprise;
         } else {
             return null;
@@ -106,7 +106,7 @@ public class EntrepriseController {
     }
 
     @DeleteMapping("/user-company/{id}")
-    public void supprimerEntreprise(@PathVariable("id") final Long id) {
-        entrepriseService.supprimerEntreprise(id);
+    public void deleteEntreprise(@PathVariable("id") final Long id) {
+        entrepriseService.deleteEntreprise(id);
     }
 }

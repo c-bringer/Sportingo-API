@@ -34,11 +34,11 @@ public class SpotService {
         return spotRepository.getSpotsByDifficultes(difficultes);
     }
 
-    public void supprimerSpot(final Long id) {
+    public void deleteSpot(final Long id) {
         spotRepository.deleteById(id);
     }
 
-    public Spot enregistrerSpot(Spot spot) {
+    public Spot saveSpot(Spot spot) {
         return spotRepository.save(spot);
     }
 }
