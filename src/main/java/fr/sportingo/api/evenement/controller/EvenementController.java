@@ -13,29 +13,29 @@ public class EvenementController
     @Autowired
     private EvenementService evenementService;
 
-    @PostMapping("/event")
+    @PostMapping("/private/evenement/ajouter")
     public Evenement saveEvenement(@RequestBody Evenement evenement) {
         return evenementService.saveEvenement(evenement);
     }
 
-    @GetMapping("/event")
+    @GetMapping("/public/evenement/liste-evenement")
     public Iterable<Evenement> getEvenements() {
         return evenementService.getEvenements();
     }
 
-    @GetMapping("/event/{id}")
+    @GetMapping("/public/evenement/{id}")
     public Evenement getEvenement(@PathVariable("id") final Long id) {
         Optional<Evenement> evenement = evenementService.getEvenement(id);
 
         return evenement.orElse(null);
     }
 
-    @GetMapping("/event/user/{idUser}")
+    @GetMapping("/public/evenement/utilisateur/{idUser}")
     public Iterable<Evenement> getEvenementsByUtilisateur(@PathVariable("idUser") final Long idUtilisateur) {
         return evenementService.getEvenementsByUtilisateur(idUtilisateur);
     }
 
-    @PutMapping("/event/{id}")
+    @PutMapping("/private/evenement/modifier/{id}")
     public Evenement updateEvenement(@RequestBody Evenement evenement, @PathVariable("id") final Long id) {
         Optional<Evenement> e = evenementService.getEvenement(id);
 
@@ -84,7 +84,7 @@ public class EvenementController
         }
     }
 
-    @DeleteMapping("/event/{id}")
+    @DeleteMapping("/private/evenement/supprimer/{id}")
     public void deleteEvenement(@PathVariable("id") final Long id) {
         evenementService.deleteEvenement(id);
     }

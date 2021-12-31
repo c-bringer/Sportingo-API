@@ -15,24 +15,24 @@ public class MotifCirculationController {
     @Autowired
     private MotifCirculationService motifCirculationService;
 
-    @PostMapping("/private/enregistrer-motif-circulation")
+    @PostMapping("/private-scoped/admin/motif-circulation/ajouter")
     public MotifCirculation saveMotifCirculation(@RequestBody MotifCirculation motifCirculation) {
         return motifCirculationService.saveMotifCirculation(motifCirculation);
     }
 
-    @GetMapping("/public/motif-de-circulation")
+    @GetMapping("/public/motif-circulation/liste-motif-circulation")
     public Iterable<MotifCirculation> getMotifsCirculation() {
         return motifCirculationService.getMotifsCirculation();
     }
 
-    @GetMapping("/public/motif-de-circulation/{id}")
+    @GetMapping("/public/motif-circulation/{id}")
     public MotifCirculation getMotifCirculation(@PathVariable("id") final Long id) {
         Optional<MotifCirculation> motifCirculation = motifCirculationService.getMotifCirculation(id);
 
         return motifCirculation.orElse(null);
     }
 
-    @PutMapping("/private/motif-de-circulation/{id}")
+    @PutMapping("/private-scoped/admin/motif-circulation/modifier/{id}")
     public MotifCirculation updateMotifCirculation(@PathVariable("id") final Long id, @RequestBody MotifCirculation motifCirculation) {
         Optional<MotifCirculation> mc = motifCirculationService.getMotifCirculation(id);
 
@@ -51,7 +51,7 @@ public class MotifCirculationController {
         }
     }
 
-    @DeleteMapping("/private/motif-de-circulation/{id}")
+    @DeleteMapping("/private-scoped/admin/motif-circulation/supprimer/{id}")
     public void deleteMotifCirculation(@PathVariable("id") final Long id) {
         motifCirculationService.deleteMotifCirculation(id);
     }

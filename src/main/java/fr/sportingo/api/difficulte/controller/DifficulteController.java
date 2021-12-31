@@ -12,24 +12,24 @@ public class DifficulteController {
     @Autowired
     private DifficulteService difficulteService;
 
-    @PostMapping("/admin/difficulte")
+    @PostMapping("/private-scoped/admin/difficulte/ajouter")
     public Difficulte saveDifficulte(@RequestBody Difficulte difficulte) {
         return difficulteService.saveDifficulte(difficulte);
     }
 
-    @GetMapping("/difficulty")
+    @GetMapping("/public/difficulte/liste-difficulte")
     public Iterable<Difficulte> getDifficultes() {
         return difficulteService.getDifficultes();
     }
 
-    @GetMapping("/difficulty/{id}")
+    @GetMapping("/public/difficulte/{id}")
     public Difficulte getDifficulte(@PathVariable("id") final Long id) {
         Optional<Difficulte> difficulte = difficulteService.getDifficulte(id);
 
         return difficulte.orElse(null);
     }
 
-    @PutMapping("/admin/difficulty/{id}")
+    @PutMapping("/private-scoped/admin/difficulte/modifier/{id}")
     public Difficulte updateDifficulte(@PathVariable("id") final Long id, @RequestBody Difficulte difficulte) {
         Optional<Difficulte> d = difficulteService.getDifficulte(id);
 
@@ -48,7 +48,7 @@ public class DifficulteController {
         }
     }
 
-    @DeleteMapping("/admin/difficulty/{id}")
+    @DeleteMapping("/private-scoped/admin/difficulte/supprimer/{id}")
     public void deleteDifficulty(@PathVariable("id") final Long id) {
         difficulteService.deleteDifficulte(id);
     }

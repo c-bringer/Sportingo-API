@@ -16,34 +16,34 @@ public class SpotController {
     @Autowired
     private SpotService spotService;
 
-    @PostMapping("/spot")
+    @PostMapping("/private/spot/ajouter")
     public Spot saveSpot(@RequestBody Spot spot) {
         return spotService.saveSpot(spot);
     }
 
-    @GetMapping("/spot/{id}")
+    @GetMapping("/public/spot/liste-spot")
+    public Iterable<Spot> getSpots() {
+        return spotService.getSpots();
+    }
+
+    @GetMapping("/public/spot/{id}")
     public Spot getSpot(@PathVariable("id") final Long id) {
         Optional<Spot> spot = spotService.getSpot(id);
 
         return spot.orElse(null);
     }
 
-    @GetMapping("/spot")
-    public Iterable<Spot> getSpots() {
-        return spotService.getSpots();
-    }
-
-    @GetMapping("/spot/user/{id}")
+    @GetMapping("public/spot/utilisateur/{id}")
     public Iterable<Spot> getSpotsByUtilisateur(@PathVariable("id") final Long idUtilisateur) {
         return spotService.getSpotsByUtilisateur(idUtilisateur);
     }
 
-    @GetMapping("/spot/difficulty/{difficultes}")
+    @GetMapping("public/spot/difficulte/{difficultes}")
     public Iterable<Spot> getSpotsByDifficultes(@PathVariable("difficultes") final List<String> difficultes) {
         return spotService.getSpotsByDifficultes(difficultes);
     }
 
-    @PutMapping("/spot/{id}")
+    @PutMapping("private/spot/modifier/{id}")
     public Spot updateSpot(@RequestBody Spot spot, @PathVariable("id") final Long id) {
         Optional<Spot> s = spotService.getSpot(id);
 
@@ -107,7 +107,7 @@ public class SpotController {
         }
     }
 
-    @DeleteMapping("/spot/{id}")
+    @DeleteMapping("private/spot/supprimer/{id}")
     public void deleteSpot(@PathVariable("id") final Long id) {
         spotService.deleteSpot(id);
     }

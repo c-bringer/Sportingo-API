@@ -14,24 +14,24 @@ public class EntrepriseController {
     @Autowired
     private EntrepriseService entrepriseService;
 
-    @PostMapping("/user-company")
+    @PostMapping("/public/entreprise/inscription")
     public Entreprise saveEntreprise(@RequestBody Entreprise entreprise) {
         return entrepriseService.saveEntreprise(entreprise);
     }
 
-    @GetMapping("/user-company")
+    @GetMapping("/public/entreprise/liste-entreprise")
     public Iterable<Entreprise> getEntreprises() {
         return entrepriseService.getEntreprises();
     }
 
-    @GetMapping("/user-company/{id}")
+    @GetMapping("/public/entreprise/{id}")
     public Entreprise getEntreprise(@PathVariable("id") final Long id) {
         Optional<Entreprise> user = entrepriseService.getEntreprise(id);
 
         return user.orElse(null);
     }
 
-    @PutMapping("/user-company/{id}")
+    @PutMapping("/private/entreprise/modifier/{id}")
     public Entreprise updateEntreprise(@PathVariable("id") final Long id, @RequestBody Entreprise entreprise) {
         Optional<Entreprise> e = entrepriseService.getEntreprise(id);
 
@@ -105,7 +105,7 @@ public class EntrepriseController {
         }
     }
 
-    @DeleteMapping("/user-company/{id}")
+    @DeleteMapping("/private/entreprise/supprimer/{id}")
     public void deleteEntreprise(@PathVariable("id") final Long id) {
         entrepriseService.deleteEntreprise(id);
     }

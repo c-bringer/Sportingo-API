@@ -14,24 +14,24 @@ public class UtilisateurController {
     @Autowired
     private UtilisateurService utilisateurService;
 
-    @PostMapping("/user")
+    @PostMapping("/public/utilisateur/inscription")
     public Utilisateur saveUtilisateur(@RequestBody Utilisateur utilisateur) {
         return utilisateurService.saveUtilisateur(utilisateur);
     }
 
-    @GetMapping("/user")
+    @GetMapping("/private-scoped/admin/utilisateur/liste-utilisateur")
     public Iterable<Utilisateur> getUtilisateurs() {
         return utilisateurService.getUtilisateurs();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/public/utilisateur/{id}")
     public Utilisateur getUtilisateur(@PathVariable("id") final Long id) {
         Optional<Utilisateur> utilisateur = utilisateurService.getUtilisateur(id);
 
         return utilisateur.orElse(null);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/private/utilisateur/modifier/{id}")
     public Utilisateur updateUtilisateur(@PathVariable("id") final Long id, @RequestBody Utilisateur utilisateur) {
         Optional<Utilisateur> u = utilisateurService.getUtilisateur(id);
 
@@ -85,7 +85,7 @@ public class UtilisateurController {
         }
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/private/utilisateur/supprimer/{id}")
     public void deleteUtilisateur(@PathVariable("id") final Long id) {
         utilisateurService.deleteUtilisateur(id);
     }

@@ -13,29 +13,29 @@ public class MagasinController {
     @Autowired
     private MagasinService magasinService;
 
-    @PostMapping("/magasin")
+    @PostMapping("/private/magasin/ajouter")
     public Magasin saveMagasin(@RequestBody Magasin magasin) {
         return magasinService.saveMagasin(magasin);
     }
 
-    @GetMapping("/magasin")
+    @GetMapping("/public/magasin/liste-magasin")
     public Iterable<Magasin> getMagasins() {
         return magasinService.getMagasins();
     }
 
-    @GetMapping("/magasin/{id}")
+    @GetMapping("/public/magasin/{id}")
     public Magasin getMagasin(@PathVariable("id") final Long id) {
         Optional<Magasin> magasin = magasinService.getMagasin(id);
 
         return magasin.orElse(null);
     }
 
-    @GetMapping("/magasin/user/{idUser}")
+    @GetMapping("/public/magasin/utilisateur/{idUser}")
     public Iterable<Magasin> getMagasinsByUtilisateur(@PathVariable("idUser") final Long idUtilisateur) {
         return magasinService.getMagasinsByUtilisateur(idUtilisateur);
     }
 
-    @PutMapping("/magasin/{id}")
+    @PutMapping("/private/magasin/modifier/{id}")
     public Magasin updateMagasin(@RequestBody Magasin magasin, @PathVariable("id") final Long id) {
         Optional<Magasin> m = magasinService.getMagasin(id);
 
@@ -69,7 +69,7 @@ public class MagasinController {
         }
     }
 
-    @DeleteMapping("/magasin/{id}")
+    @DeleteMapping("/private/magasin/supprimer/{id}")
     public void deleteMagasin(@PathVariable("id") final Long id) {
         magasinService.deleteMagasin(id);
     }

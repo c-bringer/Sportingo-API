@@ -15,29 +15,29 @@ public class EvenementSportifController {
     @Autowired
     private EvenementSportifService sportifService;
 
-    @PostMapping("/eventsportif")
+    @PostMapping("/private/evenement-sportif/ajouter")
     public EvenementSportif saveEvenementSportif(@RequestBody EvenementSportif evenement) {
         return sportifService.saveEvenement(evenement);
     }
 
-    @GetMapping("/eventsport")
+    @GetMapping("/public/evenement-sportif/liste-evenement-sportif")
     public Iterable<EvenementSportif> getEvenementsSportif() {
         return sportifService.getEvenementsSportif();
     }
 
-    @GetMapping("/eventsport/{id}")
+    @GetMapping("/public/evenement-sportif/{id}")
     public EvenementSportif getEvenementSportif(@PathVariable("id") final Long id) {
         Optional<EvenementSportif> evenement = sportifService.getEvenementSportif(id);
 
         return evenement.orElse(null);
     }
 
-    @GetMapping("/eventsport/user/{idUser}")
+    @GetMapping("/public/evenement-sportif/utilisateur/{idUser}")
     public Iterable<EvenementSportif> getEvenementsSportifByUtilisateur(@PathVariable("idUser") final Long idUtilisateur) {
         return sportifService.getEvenementsSportifByUtilisateur(idUtilisateur);
     }
 
-    @PutMapping("/eventsport/{id}")
+    @PutMapping("/private/evenement-sportif/modifier/{id}")
     public EvenementSportif updateEvenementSportif(@RequestBody EvenementSportif evenement, @PathVariable("id") final Long id) {
         Optional<EvenementSportif> e = sportifService.getEvenementSportif(id);
 
@@ -96,7 +96,7 @@ public class EvenementSportifController {
         }
     }
 
-    @DeleteMapping("/eventsport/{id}")
+    @DeleteMapping("/private/evenement-sportif/supprimer/{id}")
     public void deleteEvenementSportif(@PathVariable("id") final Long id) {
         sportifService.deleteEvenement(id);
     }
