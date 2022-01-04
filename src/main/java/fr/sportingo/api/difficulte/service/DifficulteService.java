@@ -5,6 +5,7 @@ import fr.sportingo.api.difficulte.repository.DifficulteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,7 +17,7 @@ public class DifficulteService {
         return difficulteRepository.findById(id);
     }
 
-    public Iterable<Difficulte> getDifficultes() {
+    public List<Difficulte> getDifficultes() {
         return difficulteRepository.findAll();
     }
 

@@ -11,8 +11,8 @@
 	<groupId>fr.sportingo</groupId>
 	<artifactId>Sportingo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Sportingo API/WebApp</name>
-	<description>API et WebApp de Sportingo</description>
+	<name>Sportingo API</name>
+	<description>API de Sportingo</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -35,16 +35,6 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-oauth2-resource-server</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
@@ -58,6 +48,11 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.20</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
 
 	</dependencies>
