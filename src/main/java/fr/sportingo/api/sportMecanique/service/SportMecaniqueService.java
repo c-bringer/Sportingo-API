@@ -2,9 +2,11 @@ package fr.sportingo.api.sportMecanique.service;
 
 import fr.sportingo.api.sportMecanique.model.SportMecanique;
 import fr.sportingo.api.sportMecanique.repository.SportMecaniqueRepository;
+import fr.sportingo.api.sportMecanique.status.SportMecaniqueStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,12 +18,16 @@ public class SportMecaniqueService {
         return sportMecaniqueRepository.findById(id);
     }
 
-    public Iterable<SportMecanique> getSportsMecaniques() {
+    public List<SportMecanique> getSportsMecaniques() {
         return sportMecaniqueRepository.findAll();
     }
 
-    public void deleteSportMecanique(final Long id) {
-        sportMecaniqueRepository.deleteById(id);
+    public List<SportMecanique> getSportsMecaniquesActives(SportMecaniqueStatus status) {
+        return sportMecaniqueRepository.getSportsMecaniquesActives(status);
+    }
+
+    public List<SportMecanique> getSportsMecaniquesDesactives(SportMecaniqueStatus status) {
+        return sportMecaniqueRepository.getSportsMecaniquesDesactives(status);
     }
 
     public SportMecanique saveSportMecanique(SportMecanique sportMecanique) {

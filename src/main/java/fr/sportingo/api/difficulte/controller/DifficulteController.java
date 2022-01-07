@@ -60,7 +60,7 @@ public class DifficulteController {
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
 
-        return CollectionModel.of(difficultes, linkTo(methodOn(DifficulteController.class).getDifficultes())
+        return CollectionModel.of(difficultes, linkTo(methodOn(DifficulteController.class).getDifficultesActivees())
                 .withSelfRel());
     }
 
@@ -71,27 +71,37 @@ public class DifficulteController {
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
 
-        return CollectionModel.of(difficultes, linkTo(methodOn(DifficulteController.class).getDifficultes())
+        return CollectionModel.of(difficultes, linkTo(methodOn(DifficulteController.class).getDifficultesDesactivees())
                 .withSelfRel());
     }
 
     @GetMapping("/public/difficulte/{id}")
-    public EntityModel<Difficulte> getDifficulte(@PathVariable("id") final Long id) {
+    public ResponseEntity<?> getDifficulte(@PathVariable("id") final Long id) {
         Difficulte difficulte = difficulteService.getDifficulte(id)
                 .orElseThrow(() -> new DifficulteNotFoundException(id));
 
-        return assembler.toModel(difficulte);
+        if(difficulte.getStatus() == DifficulteStatus.ACTIVE) {
+            return ResponseEntity.ok(assembler.toModel(difficulte));
+        }
+
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+                .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE)
+                .body(Problem.create()
+                        .withTitle("Méthode non autorisée")
+                        .withDetail("Vous ne pouvez pas accéder à une difficulté qui possède le status : "
+                                + difficulte.getStatus()));
     }
 
     @PutMapping("/private-scoped/admin/difficulte/modifier/{id}")
     public ResponseEntity<?> updateDifficulte(@RequestBody Difficulte nouvelleDifficulte, @PathVariable final Long id) {
         Difficulte updatedDifficulte = difficulteService.getDifficulte(id)
                 .map(difficulte -> {
-                    difficulte.setLibelle(difficulte.getLibelle());
-                    return difficulteService.saveDifficulte(nouvelleDifficulte);
+                    difficulte.setLibelle(nouvelleDifficulte.getLibelle());
+                    return difficulteService.saveDifficulte(difficulte);
                 })
                 .orElseGet(() -> {
                     nouvelleDifficulte.setId(id);
+                    nouvelleDifficulte.setStatus(DifficulteStatus.ACTIVE);
                     return difficulteService.saveDifficulte(nouvelleDifficulte);
                 });
 

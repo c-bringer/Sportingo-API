@@ -30,10 +30,6 @@ public class DifficulteService {
         return difficulteRepository.getDifficultesDesactivees(status);
     }
 
-    public void deleteDifficulte(final Long id) {
-        difficulteRepository.deleteById(id);
-    }
-
     public Difficulte saveDifficulte(Difficulte difficulte) {
         return difficulteRepository.save(difficulte);
     }
