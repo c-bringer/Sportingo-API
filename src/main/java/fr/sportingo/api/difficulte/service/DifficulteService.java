@@ -2,6 +2,7 @@ package fr.sportingo.api.difficulte.service;
 
 import fr.sportingo.api.difficulte.model.Difficulte;
 import fr.sportingo.api.difficulte.repository.DifficulteRepository;
+import fr.sportingo.api.difficulte.status.DifficulteStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,14 @@ public class DifficulteService {
 
     public List<Difficulte> getDifficultes() {
         return difficulteRepository.findAll();
+    }
+
+    public List<Difficulte> getDifficultesActivees(DifficulteStatus status) {
+        return difficulteRepository.getDifficultesActivees(status);
+    }
+
+    public List<Difficulte> getDifficultesDesactivees(DifficulteStatus status) {
+        return difficulteRepository.getDifficultesDesactivees(status);
     }
 
     public void deleteDifficulte(final Long id) {

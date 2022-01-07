@@ -4,10 +4,15 @@ import fr.sportingo.api.difficulte.exception.DifficulteNotFoundException;
 import fr.sportingo.api.difficulte.model.Difficulte;
 import fr.sportingo.api.difficulte.model.DifficulteModelAssembler;
 import fr.sportingo.api.difficulte.service.DifficulteService;
+import fr.sportingo.api.difficulte.status.DifficulteStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.mediatype.problem.Problem;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +35,7 @@ public class DifficulteController {
 
     @PostMapping("/private-scoped/admin/difficulte/ajouter")
     public ResponseEntity<?> saveDifficulte(@RequestBody Difficulte difficulte) {
+        difficulte.setStatus(DifficulteStatus.ACTIVE);
         EntityModel<Difficulte> entityModel = assembler.toModel(difficulteService.saveDifficulte(difficulte));
 
         return ResponseEntity
@@ -37,13 +43,36 @@ public class DifficulteController {
                 .body(entityModel);
     }
 
-    @GetMapping("/public/difficulte/liste-difficulte")
+    @GetMapping("/private-scoped/admin/difficulte/liste-difficulte")
     public CollectionModel<EntityModel<Difficulte>> getDifficultes() {
         List<EntityModel<Difficulte>> difficultes = difficulteService.getDifficultes().stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
 
-        return CollectionModel.of(difficultes, linkTo(methodOn(DifficulteController.class).getDifficultes()).withSelfRel());
+        return CollectionModel.of(difficultes, linkTo(methodOn(DifficulteController.class).getDifficultes())
+                .withSelfRel());
+    }
+
+    @GetMapping("/public/difficulte/liste-difficulte/active")
+    public CollectionModel<EntityModel<Difficulte>> getDifficultesActivees() {
+        List<EntityModel<Difficulte>> difficultes = difficulteService.getDifficultesActivees(DifficulteStatus.ACTIVE)
+                .stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(difficultes, linkTo(methodOn(DifficulteController.class).getDifficultes())
+                .withSelfRel());
+    }
+
+    @GetMapping("/private-scoped/admin/difficulte/liste-difficulte/desactive")
+    public CollectionModel<EntityModel<Difficulte>> getDifficultesDesactivees() {
+        List<EntityModel<Difficulte>> difficultes = difficulteService.getDifficultesDesactivees(DifficulteStatus.DESACTIVE)
+                .stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(difficultes, linkTo(methodOn(DifficulteController.class).getDifficultes())
+                .withSelfRel());
     }
 
     @GetMapping("/public/difficulte/{id}")
@@ -73,8 +102,21 @@ public class DifficulteController {
                 .body(entityModel);
     }
 
-    @DeleteMapping("/private-scoped/admin/difficulte/supprimer/{id}")
-    public void deleteDifficulty(@PathVariable("id") final Long id) {
-        difficulteService.deleteDifficulte(id);
+    @DeleteMapping("/private-scoped/admin/difficulte/desactiver/{id}")
+    public ResponseEntity<?> desactiverDifficulte(@PathVariable final Long id) {
+        Difficulte difficulte = difficulteService.getDifficulte(id)
+                .orElseThrow(() -> new DifficulteNotFoundException(id));
+
+        if(difficulte.getStatus() == DifficulteStatus.ACTIVE) {
+            difficulte.setStatus(DifficulteStatus.DESACTIVE);
+            return ResponseEntity.ok(assembler.toModel(difficulteService.saveDifficulte(difficulte)));
+        }
+
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+                .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE)
+                .body(Problem.create()
+                        .withTitle("Méthode non autorisée")
+                        .withDetail("Vous ne pouvez pas desactiver une difficulté qui possède le status : "
+                                + difficulte.getStatus()));
     }
 }

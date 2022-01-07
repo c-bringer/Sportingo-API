@@ -1,5 +1,6 @@
 package fr.sportingo.api.difficulte.model;
 
+import fr.sportingo.api.difficulte.status.DifficulteStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,4 +17,8 @@ public class Difficulte {
 
     @Column(name = "libelle", length = 50)
     private String libelle;
+
+    @Column(name = "status", length = 9)
+    @Enumerated(EnumType.STRING)
+    private DifficulteStatus status;
 }
