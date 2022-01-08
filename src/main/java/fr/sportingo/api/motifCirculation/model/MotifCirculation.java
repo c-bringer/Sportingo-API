@@ -1,5 +1,6 @@
 package fr.sportingo.api.motifCirculation.model;
 
+import fr.sportingo.api.motifCirculation.status.MotifCirculationStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +18,8 @@ public class MotifCirculation {
 
     @Column(name = "libelle", length = 50)
     private String libelle;
+
+    @Column(name = "status", length = 9)
+    @Enumerated(EnumType.STRING)
+    private MotifCirculationStatus status;
 }
