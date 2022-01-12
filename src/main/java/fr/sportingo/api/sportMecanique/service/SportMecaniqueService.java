@@ -22,12 +22,8 @@ public class SportMecaniqueService {
         return sportMecaniqueRepository.findAll();
     }
 
-    public List<SportMecanique> getSportsMecaniquesActives(SportMecaniqueStatus status) {
-        return sportMecaniqueRepository.getSportsMecaniquesActives(status);
-    }
-
-    public List<SportMecanique> getSportsMecaniquesDesactives(SportMecaniqueStatus status) {
-        return sportMecaniqueRepository.getSportsMecaniquesDesactives(status);
+    public List<SportMecanique> getSportMecaniquesByStatus(SportMecaniqueStatus status) {
+        return sportMecaniqueRepository.getSportMecaniquesByStatus(status);
     }
 
     public SportMecanique saveSportMecanique(SportMecanique sportMecanique) {

@@ -55,7 +55,7 @@ public class DifficulteController {
 
     @GetMapping("/public/difficulte/liste-difficulte/active")
     public CollectionModel<EntityModel<Difficulte>> getDifficultesActivees() {
-        List<EntityModel<Difficulte>> difficultes = difficulteService.getDifficultesActivees(DifficulteStatus.ACTIVE)
+        List<EntityModel<Difficulte>> difficultes = difficulteService.getDifficultesByStatus(DifficulteStatus.ACTIVE)
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
@@ -66,7 +66,7 @@ public class DifficulteController {
 
     @GetMapping("/private-scoped/admin/difficulte/liste-difficulte/desactive")
     public CollectionModel<EntityModel<Difficulte>> getDifficultesDesactivees() {
-        List<EntityModel<Difficulte>> difficultes = difficulteService.getDifficultesDesactivees(DifficulteStatus.DESACTIVE)
+        List<EntityModel<Difficulte>> difficultes = difficulteService.getDifficultesByStatus(DifficulteStatus.DESACTIVE)
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());

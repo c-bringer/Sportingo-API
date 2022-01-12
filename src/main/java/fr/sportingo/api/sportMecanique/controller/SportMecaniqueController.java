@@ -56,7 +56,7 @@ public class SportMecaniqueController {
     @GetMapping("/public/sport-mecanique/liste-sport-mecanique/active")
     public CollectionModel<EntityModel<SportMecanique>> getSportsMecaniquesActives() {
         List<EntityModel<SportMecanique>> sportsMecaniques = sportMecaniqueService
-                .getSportsMecaniquesActives(SportMecaniqueStatus.ACTIVE)
+                .getSportMecaniquesByStatus(SportMecaniqueStatus.ACTIVE)
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
@@ -68,7 +68,7 @@ public class SportMecaniqueController {
     @GetMapping("/private-scoped/admin/sport-mecanique/liste-sport-mecanique/desactive")
     public CollectionModel<EntityModel<SportMecanique>> getSportsMecaniquesDesactives() {
         List<EntityModel<SportMecanique>> sportsMecaniques = sportMecaniqueService
-                .getSportsMecaniquesActives(SportMecaniqueStatus.DESACTIVE)
+                .getSportMecaniquesByStatus(SportMecaniqueStatus.DESACTIVE)
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());

@@ -11,8 +11,5 @@ import java.util.List;
 @Repository
 public interface DifficulteRepository extends JpaRepository<Difficulte, Long> {
     @Query(value = "SELECT d FROM Difficulte d WHERE d.status = ?1")
-    List<Difficulte> getDifficultesActivees(DifficulteStatus status);
-
-    @Query(value = "SELECT d FROM Difficulte d WHERE d.status = ?1")
-    List<Difficulte> getDifficultesDesactivees(DifficulteStatus status);
+    List<Difficulte> getDifficultesByStatus(DifficulteStatus status);
 }

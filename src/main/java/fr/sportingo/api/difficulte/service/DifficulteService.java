@@ -22,12 +22,8 @@ public class DifficulteService {
         return difficulteRepository.findAll();
     }
 
-    public List<Difficulte> getDifficultesActivees(DifficulteStatus status) {
-        return difficulteRepository.getDifficultesActivees(status);
-    }
-
-    public List<Difficulte> getDifficultesDesactivees(DifficulteStatus status) {
-        return difficulteRepository.getDifficultesDesactivees(status);
+    public List<Difficulte> getDifficultesByStatus(DifficulteStatus status) {
+        return difficulteRepository.getDifficultesByStatus(status);
     }
 
     public Difficulte saveDifficulte(Difficulte difficulte) {

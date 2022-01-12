@@ -11,8 +11,5 @@ import java.util.List;
 @Repository
 public interface SportMecaniqueRepository extends JpaRepository<SportMecanique, Long> {
     @Query(value = "SELECT sm FROM SportMecanique sm WHERE sm.status = ?1")
-    List<SportMecanique> getSportsMecaniquesActives(SportMecaniqueStatus status);
-
-    @Query(value = "SELECT sm FROM SportMecanique sm WHERE sm.status = ?1")
-    List<SportMecanique> getSportsMecaniquesDesactives(SportMecaniqueStatus status);
+    List<SportMecanique> getSportMecaniquesByStatus(SportMecaniqueStatus status);
 }

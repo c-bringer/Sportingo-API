@@ -1,27 +1,112 @@
 package fr.sportingo.api.magasin.controller;
 
+import fr.sportingo.api.difficulte.controller.DifficulteController;
+import fr.sportingo.api.difficulte.model.Difficulte;
+import fr.sportingo.api.difficulte.model.DifficulteModelAssembler;
+import fr.sportingo.api.difficulte.status.DifficulteStatus;
 import fr.sportingo.api.magasin.model.Magasin;
+import fr.sportingo.api.magasin.model.MagasinModelAssembler;
 import fr.sportingo.api.magasin.service.MagasinService;
+import fr.sportingo.api.magasin.status.MagasinStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class MagasinController {
-
     @Autowired
     private MagasinService magasinService;
 
-    @PostMapping("/private/magasin/ajouter")
-    public Magasin saveMagasin(@RequestBody Magasin magasin) {
-        return magasinService.saveMagasin(magasin);
+    private final MagasinModelAssembler assembler;
+
+    MagasinController(MagasinModelAssembler assembler) {
+        this.assembler = assembler;
     }
 
-    @GetMapping("/public/magasin/liste-magasin")
-    public Iterable<Magasin> getMagasins() {
-        return magasinService.getMagasins();
+    @PostMapping("/private/magasin/ajouter")
+    public ResponseEntity<?> saveMagasin(@RequestBody Magasin magasin) {
+        magasin.setStatus(MagasinStatus.EN_ATTENTE);
+        EntityModel<Magasin> entityModel = assembler.toModel(magasinService.saveMagasin(magasin));
+
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
+
+    @GetMapping("/private-scoped/admin/magasin/liste-magasin")
+    public CollectionModel<EntityModel<Magasin>> getMagasins() {
+        List<EntityModel<Magasin>> magasins = magasinService.getMagasins().stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(magasins, linkTo(methodOn(MagasinController.class).getMagasins())
+                .withSelfRel());
+    }
+
+    @GetMapping("/public/magasin/liste-magasin/active")
+    public CollectionModel<EntityModel<Magasin>> getMagasinsActives() {
+        List<EntityModel<Magasin>> magasins = magasinService.getMagasinsByStatus(MagasinStatus.ACTIVE)
+                .stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(magasins, linkTo(methodOn(MagasinController.class).getMagasinsActives())
+                .withSelfRel());
+    }
+
+    @GetMapping("/private-scoped/admin/magasin/liste-magasin/desactive")
+    public CollectionModel<EntityModel<Magasin>> getMagasinsDesactives() {
+        List<EntityModel<Magasin>> magasins = magasinService.getMagasinsByStatus(MagasinStatus.DESACTIVE)
+                .stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(magasins, linkTo(methodOn(MagasinController.class).getMagasinsDesactives())
+                .withSelfRel());
+    }
+
+    @GetMapping("/private-scoped/admin/magasin/liste-magasin/en-attente")
+    public CollectionModel<EntityModel<Magasin>> getMagasinsEnAttente() {
+        List<EntityModel<Magasin>> magasins = magasinService.getMagasinsByStatus(MagasinStatus.EN_ATTENTE)
+                .stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(magasins, linkTo(methodOn(MagasinController.class).getMagasinsEnAttente())
+                .withSelfRel());
+    }
+
+    @GetMapping("/private-scoped/admin/magasin/liste-magasin/refuse")
+    public CollectionModel<EntityModel<Magasin>> getMagasinsEnAttente() {
+        List<EntityModel<Magasin>> magasins = magasinService.getMagasinsByStatus(MagasinStatus.REFUSE)
+                .stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(magasins, linkTo(methodOn(MagasinController.class).getMagasinsEnAttente())
+                .withSelfRel());
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     @GetMapping("/public/magasin/{id}")
     public Magasin getMagasin(@PathVariable("id") final Long id) {
