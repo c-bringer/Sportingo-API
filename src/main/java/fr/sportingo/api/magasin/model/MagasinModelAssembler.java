@@ -13,7 +13,7 @@ public class MagasinModelAssembler implements RepresentationModelAssembler<Magas
     @Override
     public EntityModel<Magasin> toModel(Magasin magasin) {
         return EntityModel.of(magasin,
-                linkTo(methodOn(MagasinController.class).getMagasin(magasin.getId())).withSelfRel(),
-                linkTo(methodOn(MagasinController.class).getDifficultes()).withRel("magasins"));
+                linkTo(methodOn(MagasinController.class).getMagasin(magasin.getUuid())).withSelfRel(),
+                linkTo(methodOn(MagasinController.class).getMagasins()).withRel("magasins"));
     }
 }

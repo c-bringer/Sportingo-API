@@ -2,7 +2,7 @@ package fr.sportingo.api.sportMecanique.service;
 
 import fr.sportingo.api.sportMecanique.model.SportMecanique;
 import fr.sportingo.api.sportMecanique.repository.SportMecaniqueRepository;
-import fr.sportingo.api.sportMecanique.status.SportMecaniqueStatus;
+import fr.sportingo.api.sportMecanique.statut.SportMecaniqueStatut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +22,8 @@ public class SportMecaniqueService {
         return sportMecaniqueRepository.findAll();
     }
 
-    public List<SportMecanique> getSportMecaniquesByStatus(SportMecaniqueStatus status) {
-        return sportMecaniqueRepository.getSportMecaniquesByStatus(status);
+    public List<SportMecanique> getSportMecaniquesBystatut(SportMecaniqueStatut statut) {
+        return sportMecaniqueRepository.getSportMecaniquesByStatut(statut);
     }
 
     public SportMecanique saveSportMecanique(SportMecanique sportMecanique) {

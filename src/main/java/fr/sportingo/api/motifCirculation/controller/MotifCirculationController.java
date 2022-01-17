@@ -4,7 +4,7 @@ import fr.sportingo.api.motifCirculation.exception.MotifCirculationNotFoundExcep
 import fr.sportingo.api.motifCirculation.model.MotifCirculation;
 import fr.sportingo.api.motifCirculation.model.MotifCirculationModelAssembler;
 import fr.sportingo.api.motifCirculation.service.MotifCirculationService;
-import fr.sportingo.api.motifCirculation.status.MotifCirculationStatus;
+import fr.sportingo.api.motifCirculation.statut.MotifCirculationStatut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -35,7 +35,7 @@ public class MotifCirculationController {
 
     @PostMapping("/private-scoped/admin/motif-circulation/ajouter")
     public ResponseEntity<?> saveMotifCirculation(@RequestBody MotifCirculation motifCirculation) {
-        motifCirculation.setStatus(MotifCirculationStatus.ACTIVE);
+        motifCirculation.setStatut(MotifCirculationStatut.ACTIVE);
         EntityModel<MotifCirculation> entityModel = assembler.toModel(motifCirculationService.saveMotifCirculation(motifCirculation));
 
         return ResponseEntity
@@ -56,7 +56,7 @@ public class MotifCirculationController {
     @GetMapping("/public/motif-circulation/liste-motif-circulation/active")
     public CollectionModel<EntityModel<MotifCirculation>> getMotifsCirculationActives() {
         List<EntityModel<MotifCirculation>> motifsCirculation = motifCirculationService
-                .getMotifsCirculationActives(MotifCirculationStatus.ACTIVE)
+                .getMotifsCirculationByStatut(MotifCirculationStatut.ACTIVE)
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
@@ -68,7 +68,7 @@ public class MotifCirculationController {
     @GetMapping("/private-scoped/admin/motif-circulation/liste-motif-circulation/desactive")
     public CollectionModel<EntityModel<MotifCirculation>> getMotifsCirculationDesactives() {
         List<EntityModel<MotifCirculation>> motifsCirculation = motifCirculationService
-                .getMotifsCirculationDesactives(MotifCirculationStatus.DESACTIVE)
+                .getMotifsCirculationByStatut(MotifCirculationStatut.DESACTIVE)
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
@@ -83,7 +83,7 @@ public class MotifCirculationController {
         MotifCirculation motifCirculation = motifCirculationService.getMotifCirculation(id)
                 .orElseThrow(() -> new MotifCirculationNotFoundException(id));
 
-        if(motifCirculation.getStatus() == MotifCirculationStatus.ACTIVE) {
+        if(motifCirculation.getStatut() == MotifCirculationStatut.ACTIVE) {
             return ResponseEntity.ok(assembler.toModel(motifCirculation));
         }
 
@@ -91,8 +91,8 @@ public class MotifCirculationController {
                 .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE)
                 .body(Problem.create()
                         .withTitle("Méthode non autorisée")
-                        .withDetail("Vous ne pouvez pas accéder à un motif de circulation qui possède le status : "
-                                + motifCirculation.getStatus()));
+                        .withDetail("Vous ne pouvez pas accéder à un motif de circulation qui possède le statut : "
+                                + motifCirculation.getStatut()));
     }
 
     @PutMapping("/private-scoped/admin/motif-circulation/modifier/{id}")
@@ -104,7 +104,7 @@ public class MotifCirculationController {
                 })
                 .orElseGet(() -> {
                     nouveauMotifCirculation.setId(id);
-                    nouveauMotifCirculation.setStatus(MotifCirculationStatus.ACTIVE);
+                    nouveauMotifCirculation.setStatut(MotifCirculationStatut.ACTIVE);
                     return motifCirculationService.saveMotifCirculation(nouveauMotifCirculation);
                 });
 
@@ -120,8 +120,8 @@ public class MotifCirculationController {
         MotifCirculation motifCirculation = motifCirculationService.getMotifCirculation(id)
                 .orElseThrow(() -> new MotifCirculationNotFoundException(id));
 
-        if(motifCirculation.getStatus() == MotifCirculationStatus.ACTIVE) {
-            motifCirculation.setStatus(MotifCirculationStatus.DESACTIVE);
+        if(motifCirculation.getStatut() == MotifCirculationStatut.ACTIVE) {
+            motifCirculation.setStatut(MotifCirculationStatut.DESACTIVE);
             return ResponseEntity.ok(assembler.toModel(motifCirculationService.saveMotifCirculation(motifCirculation)));
         }
 
@@ -129,7 +129,7 @@ public class MotifCirculationController {
                 .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE)
                 .body(Problem.create()
                         .withTitle("Méthode non autorisée")
-                        .withDetail("Vous ne pouvez pas desactiver un motif de circulation qui possède le status : "
-                                + motifCirculation.getStatus()));
+                        .withDetail("Vous ne pouvez pas desactiver un motif de circulation qui possède le statut : "
+                                + motifCirculation.getStatut()));
     }
 }

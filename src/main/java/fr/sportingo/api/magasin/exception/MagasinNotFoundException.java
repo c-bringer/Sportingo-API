@@ -1,7 +1,9 @@
 package fr.sportingo.api.magasin.exception;
 
+import java.util.UUID;
+
 public class MagasinNotFoundException extends RuntimeException {
-    public MagasinNotFoundException(Long id) {
-        super("Impossible de trouver le magasin " + id);
+    public MagasinNotFoundException(UUID uuid) {
+        super("Impossible de trouver le magasin " + uuid);
     }
 }

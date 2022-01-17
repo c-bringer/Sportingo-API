@@ -4,7 +4,7 @@ import fr.sportingo.api.sportMecanique.exception.SportMecaniqueNotFoundException
 import fr.sportingo.api.sportMecanique.model.SportMecaniqueModelAssembler;
 import fr.sportingo.api.sportMecanique.service.SportMecaniqueService;
 import fr.sportingo.api.sportMecanique.model.SportMecanique;
-import fr.sportingo.api.sportMecanique.status.SportMecaniqueStatus;
+import fr.sportingo.api.sportMecanique.statut.SportMecaniqueStatut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -35,7 +35,7 @@ public class SportMecaniqueController {
 
     @PostMapping("/private-scoped/admin/sport-mecanique/ajouter")
     public ResponseEntity<?> saveSportMecanique(@RequestBody SportMecanique sportMecanique) {
-        sportMecanique.setStatus(SportMecaniqueStatus.ACTIVE);
+        sportMecanique.setStatut(SportMecaniqueStatut.ACTIVE);
         EntityModel<SportMecanique> entityModel = assembler.toModel(sportMecaniqueService.saveSportMecanique(sportMecanique));
 
         return ResponseEntity
@@ -56,7 +56,7 @@ public class SportMecaniqueController {
     @GetMapping("/public/sport-mecanique/liste-sport-mecanique/active")
     public CollectionModel<EntityModel<SportMecanique>> getSportsMecaniquesActives() {
         List<EntityModel<SportMecanique>> sportsMecaniques = sportMecaniqueService
-                .getSportMecaniquesByStatus(SportMecaniqueStatus.ACTIVE)
+                .getSportMecaniquesBystatut(SportMecaniqueStatut.ACTIVE)
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
@@ -68,7 +68,7 @@ public class SportMecaniqueController {
     @GetMapping("/private-scoped/admin/sport-mecanique/liste-sport-mecanique/desactive")
     public CollectionModel<EntityModel<SportMecanique>> getSportsMecaniquesDesactives() {
         List<EntityModel<SportMecanique>> sportsMecaniques = sportMecaniqueService
-                .getSportMecaniquesByStatus(SportMecaniqueStatus.DESACTIVE)
+                .getSportMecaniquesBystatut(SportMecaniqueStatut.DESACTIVE)
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
@@ -82,7 +82,7 @@ public class SportMecaniqueController {
         SportMecanique sportMecanique = sportMecaniqueService.getSportMecanique(id)
                 .orElseThrow(() -> new SportMecaniqueNotFoundException(id));
 
-        if(sportMecanique.getStatus() == SportMecaniqueStatus.ACTIVE) {
+        if(sportMecanique.getStatut() == SportMecaniqueStatut.ACTIVE) {
             return ResponseEntity.ok(assembler.toModel(sportMecanique));
         }
 
@@ -90,8 +90,8 @@ public class SportMecaniqueController {
                 .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE)
                 .body(Problem.create()
                         .withTitle("Méthode non autorisée")
-                        .withDetail("Vous ne pouvez pas accéder à un sport mécanique qui possède le status : "
-                                + sportMecanique.getStatus()));
+                        .withDetail("Vous ne pouvez pas accéder à un sport mécanique qui possède le statut : "
+                                + sportMecanique.getStatut()));
     }
 
     @PutMapping("/private-scoped/admin/sport-mecanique/modifier/{id}")
@@ -103,7 +103,7 @@ public class SportMecaniqueController {
                 })
                 .orElseGet(() -> {
                     nouveauSportMecanique.setId(id);
-                    nouveauSportMecanique.setStatus(SportMecaniqueStatus.ACTIVE);
+                    nouveauSportMecanique.setStatut(SportMecaniqueStatut.ACTIVE);
                     return sportMecaniqueService.saveSportMecanique(nouveauSportMecanique);
                 });
 
@@ -119,8 +119,8 @@ public class SportMecaniqueController {
         SportMecanique sportMecanique = sportMecaniqueService.getSportMecanique(id)
                 .orElseThrow(() -> new SportMecaniqueNotFoundException(id));
 
-        if(sportMecanique.getStatus() == SportMecaniqueStatus.ACTIVE) {
-            sportMecanique.setStatus(SportMecaniqueStatus.DESACTIVE);
+        if(sportMecanique.getStatut() == SportMecaniqueStatut.ACTIVE) {
+            sportMecanique.setStatut(SportMecaniqueStatut.DESACTIVE);
             return ResponseEntity.ok(assembler.toModel(sportMecaniqueService.saveSportMecanique(sportMecanique)));
         }
 
@@ -128,7 +128,7 @@ public class SportMecaniqueController {
                 .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE)
                 .body(Problem.create()
                         .withTitle("Méthode non autorisée")
-                        .withDetail("Vous ne pouvez pas desactiver un sport mécanique qui possède le status : "
-                                + sportMecanique.getStatus()));
+                        .withDetail("Vous ne pouvez pas desactiver un sport mécanique qui possède le statut : "
+                                + sportMecanique.getStatut()));
     }
 }

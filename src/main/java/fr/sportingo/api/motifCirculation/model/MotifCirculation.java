@@ -1,6 +1,6 @@
 package fr.sportingo.api.motifCirculation.model;
 
-import fr.sportingo.api.motifCirculation.status.MotifCirculationStatus;
+import fr.sportingo.api.motifCirculation.statut.MotifCirculationStatut;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "motif_circulation")
 public class MotifCirculation {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +18,7 @@ public class MotifCirculation {
     @Column(name = "libelle", length = 50)
     private String libelle;
 
-    @Column(name = "status", length = 9)
+    @Column(name = "statut", length = 9)
     @Enumerated(EnumType.STRING)
-    private MotifCirculationStatus status;
+    private MotifCirculationStatut statut;
 }

@@ -4,7 +4,7 @@ import fr.sportingo.api.difficulte.exception.DifficulteNotFoundException;
 import fr.sportingo.api.difficulte.model.Difficulte;
 import fr.sportingo.api.difficulte.model.DifficulteModelAssembler;
 import fr.sportingo.api.difficulte.service.DifficulteService;
-import fr.sportingo.api.difficulte.status.DifficulteStatus;
+import fr.sportingo.api.difficulte.statut.DifficulteStatut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -35,7 +35,7 @@ public class DifficulteController {
 
     @PostMapping("/private-scoped/admin/difficulte/ajouter")
     public ResponseEntity<?> saveDifficulte(@RequestBody Difficulte difficulte) {
-        difficulte.setStatus(DifficulteStatus.ACTIVE);
+        difficulte.setStatut(DifficulteStatut.ACTIVE);
         EntityModel<Difficulte> entityModel = assembler.toModel(difficulteService.saveDifficulte(difficulte));
 
         return ResponseEntity
@@ -55,7 +55,7 @@ public class DifficulteController {
 
     @GetMapping("/public/difficulte/liste-difficulte/active")
     public CollectionModel<EntityModel<Difficulte>> getDifficultesActivees() {
-        List<EntityModel<Difficulte>> difficultes = difficulteService.getDifficultesByStatus(DifficulteStatus.ACTIVE)
+        List<EntityModel<Difficulte>> difficultes = difficulteService.getDifficultesBystatut(DifficulteStatut.ACTIVE)
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
@@ -66,7 +66,7 @@ public class DifficulteController {
 
     @GetMapping("/private-scoped/admin/difficulte/liste-difficulte/desactive")
     public CollectionModel<EntityModel<Difficulte>> getDifficultesDesactivees() {
-        List<EntityModel<Difficulte>> difficultes = difficulteService.getDifficultesByStatus(DifficulteStatus.DESACTIVE)
+        List<EntityModel<Difficulte>> difficultes = difficulteService.getDifficultesBystatut(DifficulteStatut.DESACTIVE)
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
@@ -80,7 +80,7 @@ public class DifficulteController {
         Difficulte difficulte = difficulteService.getDifficulte(id)
                 .orElseThrow(() -> new DifficulteNotFoundException(id));
 
-        if(difficulte.getStatus() == DifficulteStatus.ACTIVE) {
+        if(difficulte.getStatut() == DifficulteStatut.ACTIVE) {
             return ResponseEntity.ok(assembler.toModel(difficulte));
         }
 
@@ -88,8 +88,8 @@ public class DifficulteController {
                 .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE)
                 .body(Problem.create()
                         .withTitle("Méthode non autorisée")
-                        .withDetail("Vous ne pouvez pas accéder à une difficulté qui possède le status : "
-                                + difficulte.getStatus()));
+                        .withDetail("Vous ne pouvez pas accéder à une difficulté qui possède le statut : "
+                                + difficulte.getStatut()));
     }
 
     @PutMapping("/private-scoped/admin/difficulte/modifier/{id}")
@@ -101,7 +101,7 @@ public class DifficulteController {
                 })
                 .orElseGet(() -> {
                     nouvelleDifficulte.setId(id);
-                    nouvelleDifficulte.setStatus(DifficulteStatus.ACTIVE);
+                    nouvelleDifficulte.setStatut(DifficulteStatut.ACTIVE);
                     return difficulteService.saveDifficulte(nouvelleDifficulte);
                 });
 
@@ -117,8 +117,8 @@ public class DifficulteController {
         Difficulte difficulte = difficulteService.getDifficulte(id)
                 .orElseThrow(() -> new DifficulteNotFoundException(id));
 
-        if(difficulte.getStatus() == DifficulteStatus.ACTIVE) {
-            difficulte.setStatus(DifficulteStatus.DESACTIVE);
+        if(difficulte.getStatut() == DifficulteStatut.ACTIVE) {
+            difficulte.setStatut(DifficulteStatut.DESACTIVE);
             return ResponseEntity.ok(assembler.toModel(difficulteService.saveDifficulte(difficulte)));
         }
 
@@ -126,7 +126,7 @@ public class DifficulteController {
                 .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE)
                 .body(Problem.create()
                         .withTitle("Méthode non autorisée")
-                        .withDetail("Vous ne pouvez pas desactiver une difficulté qui possède le status : "
-                                + difficulte.getStatus()));
+                        .withDetail("Vous ne pouvez pas desactiver une difficulté qui possède le statut : "
+                                + difficulte.getStatut()));
     }
 }

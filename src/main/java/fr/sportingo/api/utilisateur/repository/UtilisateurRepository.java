@@ -1,10 +1,12 @@
 package fr.sportingo.api.utilisateur.repository;
 
 import fr.sportingo.api.utilisateur.model.Utilisateur;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UtilisateurRepository extends CrudRepository<Utilisateur, Long> {
+import java.util.UUID;
 
+@Repository
+public interface UtilisateurRepository extends JpaRepository<Utilisateur, UUID> {
+    Utilisateur findByEmail(String email);
 }

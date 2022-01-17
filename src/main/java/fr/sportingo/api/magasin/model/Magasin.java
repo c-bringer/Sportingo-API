@@ -1,10 +1,10 @@
 package fr.sportingo.api.magasin.model;
 
-import fr.sportingo.api.magasin.status.MagasinStatus;
+import fr.sportingo.api.magasin.statut.MagasinStatut;
 import fr.sportingo.api.utilisateur.model.Utilisateur;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -14,16 +14,10 @@ import java.util.UUID;
 @Entity
 @Table(name = "magasin")
 public class Magasin {
-
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-
     @Id
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "id", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", columnDefinition = "VARCHAR(255)")
-    private UUID id;
+    @Type(type = "uuid-char")
+    private UUID uuid = UUID.randomUUID();
 
     @Column(name = "nom", length = 50)
     private String nom;
@@ -43,8 +37,8 @@ public class Magasin {
     @Column(name = "ville", length = 50)
     private String ville;
 
-    @Column(name = "status", length = 10)
-    private MagasinStatus status;
+    @Column(name = "statut", length = 10)
+    private MagasinStatut statut;
 
     @OneToOne
     @JoinColumn(name = "id_utilisateur")

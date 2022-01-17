@@ -1,6 +1,6 @@
 package fr.sportingo.api.sportMecanique.model;
 
-import fr.sportingo.api.sportMecanique.status.SportMecaniqueStatus;
+import fr.sportingo.api.sportMecanique.statut.SportMecaniqueStatut;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +18,7 @@ public class SportMecanique {
     @Column(name = "libelle", length = 50)
     private String libelle;
 
-    @Column(name = "status", length = 9)
+    @Column(name = "statut", length = 9)
     @Enumerated(EnumType.STRING)
-    private SportMecaniqueStatus status;
+    private SportMecaniqueStatut statut;
 }

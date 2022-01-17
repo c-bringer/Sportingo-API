@@ -1,42 +1,64 @@
-//package fr.sportingo.api.security;
-//
-//import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
-//import org.springframework.security.oauth2.core.OAuth2TokenValidator;
-//import org.springframework.security.oauth2.jwt.*;
-//
-////@EnableWebSecurity
-//public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//    @Value("${auth0.audience}")
-//    private String audience;
-//
-//    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
-//    private String issuer;
-//
-//    @Bean
-//    JwtDecoder jwtDecoder() {
-//        NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder) JwtDecoders.fromIssuerLocation(issuer);
-//
-//        OAuth2TokenValidator<Jwt> audienceValidator = new AudienceValidator(audience);
-//        OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuer);
-//        OAuth2TokenValidator<Jwt> withAudience = new DelegatingOAuth2TokenValidator<Jwt>(withIssuer, audienceValidator);
-//
-//        jwtDecoder.setJwtValidator(withAudience);
-//
-//        return jwtDecoder;
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .mvcMatchers("/api/public/*").permitAll()
-//                .mvcMatchers("/api/private/*").authenticated()
-//                .mvcMatchers("/api/private-scoped/*").hasAuthority("SCOPE_red:motif_circulation")
-//                .and().cors()
-//                .and().oauth2ResourceServer().jwt();
-//    }
-//}
+package fr.sportingo.api.security;
+
+import fr.sportingo.api.utilisateur.service.UtilisateurService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.Filter;
+
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private UtilisateurService utilisateurService;
+
+    @Autowired
+    private Filter jwtRequestFilter;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(utilisateurService);
+        auth.authenticationProvider(authProvider());
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/inscription-utilisateur", "/connexion", "/public/**").permitAll()
+                .antMatchers("/private/**").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/private-scoped/admin/**").hasAnyAuthority("ADMIN")
+                .anyRequest().authenticated()
+                .and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(utilisateurService);
+        authProvider.setPasswordEncoder(encoder());
+        return authProvider;
+    }
+}

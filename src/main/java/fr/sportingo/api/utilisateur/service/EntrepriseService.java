@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class EntrepriseService {
@@ -13,7 +14,7 @@ public class EntrepriseService {
     @Autowired
     private EntrepriseRepository entrepriseRepository;
 
-    public Optional<Entreprise> getEntreprise(final Long id) {
+    public Optional<Entreprise> getEntreprise(final UUID id) {
         return entrepriseRepository.findById(id);
     }
 
@@ -21,7 +22,7 @@ public class EntrepriseService {
         return entrepriseRepository.findAll();
     }
 
-    public void deleteEntreprise(final Long id) {
+    public void deleteEntreprise(final UUID id) {
         entrepriseRepository.deleteById(id);
     }
 

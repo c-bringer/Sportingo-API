@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class EntrepriseController {
@@ -25,14 +26,14 @@ public class EntrepriseController {
     }
 
     @GetMapping("/public/entreprise/{id}")
-    public Entreprise getEntreprise(@PathVariable("id") final Long id) {
+    public Entreprise getEntreprise(@PathVariable("id") final UUID id) {
         Optional<Entreprise> user = entrepriseService.getEntreprise(id);
 
         return user.orElse(null);
     }
 
     @PutMapping("/private/entreprise/modifier/{id}")
-    public Entreprise updateEntreprise(@PathVariable("id") final Long id, @RequestBody Entreprise entreprise) {
+    public Entreprise updateEntreprise(@PathVariable("id") final UUID id, @RequestBody Entreprise entreprise) {
         Optional<Entreprise> e = entrepriseService.getEntreprise(id);
 
         if(e.isPresent()) {
@@ -73,10 +74,6 @@ public class EntrepriseController {
                 currentEntreprise.setIsAdmin(isAdmin);
             }
 
-            Integer isDesactive = entreprise.getIsDesactive();
-            if(isDesactive != null) {
-                currentEntreprise.setIsDesactive(isDesactive);
-            }
 
             String nomEntreprise = entreprise.getNomEntreprise();
             if(nomEntreprise != null) {
@@ -106,7 +103,7 @@ public class EntrepriseController {
     }
 
     @DeleteMapping("/private/entreprise/supprimer/{id}")
-    public void deleteEntreprise(@PathVariable("id") final Long id) {
+    public void deleteEntreprise(@PathVariable("id") final UUID id) {
         entrepriseService.deleteEntreprise(id);
     }
 }
